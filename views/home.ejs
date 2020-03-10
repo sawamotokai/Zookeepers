@@ -14,10 +14,15 @@
           </p>
       </div>
       
-      
-      <form action="/register" method="POST" class="form">
-        <input  type="text" name="email" class="input" placeholder="example@gmail.com" required>
-        <button class="btn">Join!</button>
+      <h2>New Animal</h2>
+      <form action="/animal/new" method="POST" class="form">
+        <label for="animalName">Name</label>
+        <input id="animalName" type="text" name="name" class="input" placeholder="Atom" required>
+        <label for="animalAge">Age</label>
+        <input id="animalAge" type="number" name="age" class="input" placeholder="7" required>
+        <label for="animalKind">Kind</label>
+        <input id="animalKind" type="text" name="kind" class="input" placeholder="cat" required>
+        <button type="submit" class="btn">Join!</button>
       </form>
     </div>
   </body>

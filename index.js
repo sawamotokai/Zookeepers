@@ -2,8 +2,9 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql');
 const dotenv = require('dotenv');
-app.use(express.json());
+const bodyParser = require('body-parser');
 
+app.use(bodyParser.urlencoded({ extended: true }));
 dotenv.config();
 app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
@@ -35,7 +36,7 @@ app.post('/animal/new', (req, res) => {
 		if (error) throw error;
 		console.log(result);
 	});
-	// res.status(200).send('Happy');
+	return res.status(200).redirect('/');
 });
 
 app.get('/animal', (req, res) => {
