@@ -31,7 +31,7 @@ app.listen(PORT, () => {
 
 app.post('/animal/new', (req, res) => {
 	const { name, age, kind } = req.body;
-	const q = `INSERT INTO animal (name, age, kind) VALUES ("${name}", ${age}, "${kind}")`;
+	const q = `INSERT INTO animal (Name, Age, Species) VALUES ("${name}", ${age}, "${kind}")`;
 	con.query(q, (error, result) => {
 		if (error) throw error;
 		console.log(result);
@@ -42,7 +42,14 @@ app.post('/animal/new', (req, res) => {
 app.get('/animal', (req, res) => {
 	con.query('SELECT * FROM animal', (error, results, fields) => {
 		if (error) throw error;
-		console.log(results[0].id);
+		console.log(results);
+		return res.render('animal', {animals: results});
+	});
+});
+
+app.get('/animal', (req,res) => {
+	con.query('SELECT * FROM animal', (error, results, fields) => {
+		if (error) throw error;
 		res.status(200).json(results);
 	});
 });
