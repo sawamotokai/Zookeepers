@@ -1,3 +1,4 @@
+
 DROP DATABASE zookeeper;
 CREATE DATABASE zookeeper;
 USE zookeeper;
@@ -196,7 +197,7 @@ CREATE TABLE Item_Availability (
 
 CREATE TABLE Trains (
 	Zookeeper_ID INTEGER,
-	Animal_ID  CHAR(255),
+	Animal_ID  INT,
 	PRIMARY KEY (Zookeeper_ID, Animal_ID),
 	CONSTRAINT FK_trainer FOREIGN KEY(Zookeeper_ID) REFERENCES Staff(ID)
 	ON UPDATE CASCADE
