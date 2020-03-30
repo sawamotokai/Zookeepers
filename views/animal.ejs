@@ -17,8 +17,7 @@
       <h2>Animals in our zoo</h2>
       <ul>
         <% for (var i =0; i < animals.length;  i++ ) { %>
-          <li/>  <%= animals[i].Species %>  <%= animals[i].Name %> <%= animals[i].Age %>
-          <%#  will output the numbers 1-10 %>
+          <li/>  <%= animals[i].Species %>  <%= animals[i].Name %> <%= animals[i].Age %> <span>Last feeded: <%= animals[i].Time || 'No data'%></span>
           <% } %>
       </ul>
       

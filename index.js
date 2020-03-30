@@ -40,16 +40,35 @@ app.post('/animal/new', (req, res) => {
 });
 
 app.get('/animal', (req, res) => {
-	con.query('SELECT * FROM animal', (error, results, fields) => {
+	const q = `SELECT * FROM animal a LEFT JOIN animal_meal am ON a.id=am.Animal_ID ORDER BY TIME`
+	con.query(q, (error, results, fields) => {
 		if (error) throw error;
 		console.log(results);
 		return res.render('animal', {animals: results});
 	});
 });
 
-app.get('/animal', (req,res) => {
-	con.query('SELECT * FROM animal', (error, results, fields) => {
+app.get('/staff', (req,res) => {
+	con.query('SELECT * FROM staff', (error, results, fields) => {
 		if (error) throw error;
-		res.status(200).json(results);
+		return res.status(200).render('staff', {staffs: results, clickHandler: 'func1()'});
 	});
+});
+
+// app.delete('/staff', (req,res) => {
+	
+// 	con.query(`DELETE FROM staff WHERE ID=${id}`, (error, results, fields) => {
+// 		if (error) throw error;
+// 		return res.status(200).render('staff', {staffs: results});
+// 	});
+// });
+
+app.post('/staff/new', (req, res) => {
+	const { name } = req.body;
+	const q = `INSERT INTO staff (Name) VALUES ("${name}")`;
+	con.query(q, (error, result) => {
+		if (error) throw error;
+		console.log(result);
+	});
+	return res.status(200).redirect('/staff');
 });
