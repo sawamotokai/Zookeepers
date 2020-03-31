@@ -40,9 +40,14 @@ app.post('/animal/new', (req, res) => {
 });
 
 app.get('/animal', (req, res) => {
+	console.log(process.env.DB_HOST);
+	console.log(process.env.DB_NAME);
+	console.log(process.env.DB_USERNAME);
+	console.log(process.env.DB_PASSWORD);
+
 	con.query('SELECT * FROM animal', (error, results, fields) => {
 		if (error) throw error;
-		console.log(results[0].id);
+		// console.log(results[0].id);
 		res.status(200).json(results);
 	});
 });

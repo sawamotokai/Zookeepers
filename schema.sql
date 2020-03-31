@@ -206,3 +206,192 @@ CREATE TABLE Trains (
 	ON UPDATE CASCADE
 	ON DELETE CASCADE
 );
+
+#POPULATE THE DATABASE
+
+#Staff
+INSERT INTO staff(name)
+VALUES("Bob Lamar"), 
+("Joe Pole"), 
+("Rosemary Thyme"),
+("Benedict Cucumber"), 
+("Raymond Li"), 
+("James Shook"), 
+("Mario Lui"),
+("Jessica Wang"),
+("Kendrick Lemont"), 
+("William Po"), 
+("Edward Chen"), 
+("Henry Pizaz"), 
+("Loki Lawrence");
+
+#Cage
+INSERT INTO cage(location)
+VALUES ("Ocean"), ("Forest"), ("Desert"), ("Tropics"), ("Snow");
+
+#Animal
+INSERT INTO animal(Cage_ID, Vet_ID, Zookeeper_ID, Species, Gender, Name, Age)
+VALUES(2, 1, 3, "Bear", "M", "Bob", 20),
+(2, 1, 3, "Bear", "F", "Bobina", 23),
+(2, 1, 3, "Bear", "M", "Little Jimmy", 5),
+(1, 3, 3, "Dolphin", "M", "Helen", 17),
+(1, 3, 3, "Beluga", "M", "Booga", 38),
+(3, 4, 3, "Camel", "F", "Brenda", 27),
+(4, 5, 3, "Parrot", "M", "Cosmo", 34),
+(4, 5, 3, "Sloth", "M", "Perry", 27),
+(5, 6, 3, "Polar Bear", "M", "Blake", 28),
+(5, 6, 3, "Penguin", "M", "Joe", 24),
+(5, 6, 3, "Penguin", "M", "Suika", 22),
+(5, 6, 3, "Penguin", "F", "Georgina", 8);
+
+#Animal_Meal
+INSERT INTO animal_meal
+VALUES (1, 1, 20, now(), 5, "Fish"),
+(2, 1, 30, now(), 5, "Fish"),
+(3, 1, 5, now(), 5, "Fish"), 
+(3, 4, 10, now(), 9, "Pork"),
+(5, 5, 16, now(), 7, "Pork"),
+(6, 6, 17, now(), 8, "Lettuce"),
+(7, 7, 18, now(), 10, "Banana"),
+(9, 8, 29, now(), 12, "Pork"),
+(12, 9, 30, now(), 11, "Fish");
+
+#Product
+INSERT INTO product(Product_name)
+VALUES ("Bear plushie"),
+("Dolphin mask"),
+("Honey jar"),
+("Sloth plushie"),
+("Chocolate bar");
+
+#Guest
+INSERT INTO guest(Age, Payment_Method)
+VALUES (20, "Cash"),
+(21, "Credit"),
+(22, "Credit"),
+(23, "Cash"),
+(5, "Cash"),
+(6, "Cash"),
+(2, "Credit"),
+(13, "Credit"),
+(67, "Coupon"),
+(89, "Cash"),
+(68, "Cash");
+
+#Shop
+INSERT INTO shop
+VALUES ("1010 Zoo Road", "Bear Lovers", 8),
+("1020 Zoo Road", "Ice Ice Baby", 8),
+("2324 Grapevine Street", "The Wildlife", 8),
+("896 Ocean Road", "Ocean Eyes", 8),
+("1010 Sahara Street", "Desserts at the Desert", 8);
+
+#Charity
+INSERT INTO charity
+VALUES ("World Wildlife"), ("Bees Forever"), ("Fish Friends"), ("Tree Huggers"), ("SPCA");
+
+#Cleans
+INSERT INTO cleans
+VALUES (1, 1, now()),
+(1, 2, now()),
+(1, 3, now()),
+(1, 4, now()),
+(2, 4, now()),
+(2, 5, now());
+
+#Buys
+INSERT INTO buys(guest_entry_number, product_ID, time, payment_method)
+VALUES (1, 1, now(), "Cash"),
+(2, 1, now(), "Cash"),
+(3, 1, now(), "Credit"),
+(1, 3, now(), "Cash"),
+(1, 4, now(), "Cash");
+
+#Donates
+INSERT INTO donates
+VALUES (001, "World Wildlife", 20),
+(0011, "Fish Friends", 50),
+(0010, "Bees Forever", 100),
+(008, "Bees Forever", 5);
+
+#Item_Availability
+INSERT INTO item_availability
+VALUES ("1010 Zoo Road", "Bear Lovers", 001),
+("1020 Zoo Road", "Ice Ice Baby", 004),
+("2324 Grapevine Street", "The Wildlife", 002),
+("896 Ocean Road", "Ocean Eyes", 004),
+("1010 Sahara Street", "Desserts at the Desert", 002);
+
+#Works_At
+INSERT INTO works_at
+VALUES	 (10, "1010 Zoo Road", "Bear Lovers"),
+(11, "1020 Zoo Road", "Ice Ice Baby"),
+(12, "896 Ocean Road", "Ocean Eyes"),
+(13, "896 Ocean Road", "Ocean Eyes");
+
+
+#Ticket_Price
+INSERT INTO ticket_price
+VALUES ("0-5", 10),
+("6-17", 15),
+("18-65", 25),
+("65+", 20);
+
+#Ticket
+INSERT INTO ticket
+VALUES (001, "0-5", 1, 10),
+(002, "6-17", 2, 15),
+(003, "18-65", 3, 25),
+(004, "65+", 4, 20);
+
+#Shows
+INSERT INTO shows
+VALUES ("Bear Feed", now()),
+("Penguin Dive", now()),
+("Penguin Feed", now()),
+("Sloth Nap", now()),
+("Camel Training", now()),
+("Polar Bears", now()),
+("Parrot Talk", now());
+
+#Performs
+INSERT INTO performs
+VALUES ("Bear Feed", now(), 1, 1),
+("Bear Feed", now(), 1, 2),
+("Bear Feed", now(), 1, 3),
+("Penguin Dive", now(), 2, 4),
+("Penguin Feed", now(), 2, 4),
+("Parrot Talk", now(), 4, 5);
+
+#Trains
+INSERT INTO trains
+VALUES (1, 1), 
+(1, 2),
+(1, 3),
+(2, 4),
+(3, 5),
+(4, 7),
+(4, 8),
+(3, 9),
+(4, 5);
+
+#Watches
+INSERT INTO watches
+VALUES (1, "Bear Feed", now()),
+(2, "Bear Feed", now()),
+(3, "Penguin Dive", now()),
+(4, "Sloth Nap", now()),
+(5, "Camel Training", now()),
+(6, "Camel Training", now()),
+(7, "Camel Training", now());
+
+#Gift_Shop_Item
+INSERT INTO gift_shop_item
+VALUES (1, 1, "Bear plushie", 10),
+(2, 2, "Bear plushie", 10),
+(3, 3, "Bear plushie", 10),
+(4, 4, "Dolphin mask", 15),
+(5, 5, "Honey jar", 5);
+
+
+
