@@ -14,10 +14,10 @@
           </p>
       </div>
       
-      <h2>Guests who have entered the zoo</h2>
+      <h2>Guests who have entered the zoo today</h2>
       <ul>
         <% for (var i =0; i < guests.length;  i++ ) { %>
-          <li/>  <%= guests[i].Number %> <%= guests[i].Age %>
+          <li/>  <%=guests[i].Entry_Number%> <%=", "%> <%=guests[i].Age%> <%=", "%> <%=guests[i].Payment_Method %>
           <% } %>
       </ul>
       <h2>New Guest Entry</h2>
@@ -26,16 +26,22 @@
         <input id="guestName" type="text" name="name" class="input" placeholder="Bob" required>
         <button type="submit" class="btn">Create!</button>
       </form>
-      <button onclick="func1()">Do something!</button>
+      <button onclick='func1()'>Total Guests</button>
+      <button onclick='func2()'>Youngest Guest</button>
+      <button onclick='func3()'>Oldest Guest</button>
     </div>
   </body>
   <script>
     function func1(){
-      console.log("I am in the click handler 1!"); 
+      window.location= '/guest/count';
     }
   
     function func2(){
-      console.log("I am in the click handler 2!"); 
+      window.location= '/guest/min';
+    }
+
+    function func3(){
+      window.location= '/guest/max';
     }
   </script>
 

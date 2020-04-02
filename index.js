@@ -68,7 +68,7 @@ app.post('/guest/new', (req, res) => {
 	const q = `INSERT INTO guest (Age, Payment_Method) VALUES (${age}, "${payment_method}")`;
 	con.query(q, (error, result) => {
 		if (error) throw error;
-		console.log(result);
+		console.log(result);	
 	});
 	return res.status(200).redirect('/guest');
 });
