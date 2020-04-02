@@ -17,19 +17,55 @@ const con = mysql.createConnection({
 	database: process.env.DB_NAME
 });
 
-app.get('/', (req, res) => {
-	res.render('home');
-});
-
-app.get('/api/user', (req, res) => {
-	res.json({ username: 'Kevin' });
-});
-
-app.listen(PORT, () => {
+app.listen(process.env.PORT || PORT, () => {
 	console.log(`Server running on http://localhost:${PORT}`);
 });
 
-app.post('/animal/new', (req, res) => {
+app.get('/', (req, res) => {
+	let promises = [];
+	promises.push(
+		new Promise((resolve, reject) => {
+			const q = `SELECT * FROM staff ORDER BY Name`;
+			con.query(q, (error, results, fields) => {
+				if (error) reject(error);
+				console.log(results);
+				resolve({ staffs: results });
+			});
+		})
+	);
+	promises.push(
+		new Promise((resolve, reject) => {
+			const q = `SELECT * FROM animal`;
+			con.query(q, (error, results, fields) => {
+				if (error) reject(error);
+				console.log(results);
+				resolve({ animals: results });
+			});
+		})
+	);
+	promises.push(
+		new Promise((resolve, reject) => {
+			const q = `SELECT * FROM cage`;
+			con.query(q, (error, results, fields) => {
+				if (error) reject(error);
+				console.log(results);
+				resolve({ cages: results });
+			});
+		})
+	);
+
+	Promise.all(promises)
+		.then((results) => {
+			let arg = {};
+			results.forEach((result) => {
+				arg = { ...arg, ...result };
+			});
+			res.render('home', arg);
+		})
+		.catch((err) => console.error(err));
+});
+
+app.post('/animal', (req, res) => {
 	const { name, age, kind } = req.body;
 	const q = `INSERT INTO animal (Name, Age, Species) VALUES ("${name}", ${age}, "${kind}")`;
 	con.query(q, (error, result) => {
@@ -39,36 +75,29 @@ app.post('/animal/new', (req, res) => {
 	return res.status(200).redirect('/');
 });
 
-app.get('/animal', (req, res) => {
-	const q = `SELECT * FROM animal a LEFT JOIN animal_meal am ON a.id=am.Animal_ID ORDER BY TIME`
-	con.query(q, (error, results, fields) => {
-		if (error) throw error;
-		console.log(results);
-		return res.render('animal', {animals: results});
-	});
-});
-
-app.get('/staff', (req,res) => {
-	con.query('SELECT * FROM staff', (error, results, fields) => {
-		if (error) throw error;
-		return res.status(200).render('staff', {staffs: results, clickHandler: 'func1()'});
-	});
-});
-
-// app.delete('/staff', (req,res) => {
-	
-// 	con.query(`DELETE FROM staff WHERE ID=${id}`, (error, results, fields) => {
-// 		if (error) throw error;
-// 		return res.status(200).render('staff', {staffs: results});
-// 	});
-// });
-
-app.post('/staff/new', (req, res) => {
+app.post('/staff', (req, res) => {
 	const { name } = req.body;
 	const q = `INSERT INTO staff (Name) VALUES ("${name}")`;
 	con.query(q, (error, result) => {
 		if (error) throw error;
 		console.log(result);
 	});
-	return res.status(200).redirect('/staff');
+	return res.status(200).redirect('/');
+});
+
+// app.delete('/staff', (req,res) => {
+// 	con.query(`DELETE FROM staff WHERE ID=${id}`, (error, results, fields) => {
+// 		if (error) throw error;
+// 		return res.status(200).render('staff', {staffs: results});
+// 	});
+// });
+
+app.post('/cleanCage', (req, res) => {
+	const { cleaningStaff, cageToClean } = req.body;
+	const q = `REPLACE INTO Cleans (Zookeeper_ID, Cage_ID) VALUES (${cleaningStaff}, ${cageToClean})`;
+	con.query(q, (error, result) => {
+		if (error) throw error;
+		console.log(result);
+		return res.status(200).redirect('/');
+	});
 });

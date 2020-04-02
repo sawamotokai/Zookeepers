@@ -1,6 +1,70 @@
-.page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+:root {
+	font-family: 'Varela Round', sans-serif;
 }
 
+header {
+	text-align: center;
+}
+
+main {
+	display: flex;
+	border: solid tomato 2px;
+	border-radius: 15px;
+	flex-flow: row wrap;
+	margin: 0.5rem;
+	padding: 1em;
+	align-items: center;
+	justify-content: space-around;
+}
+
+button {
+	text-align: center;
+	margin: 0.5em;
+	padding: 0.5em;
+	border-radius: 0.5em;
+	border-color: transparent;
+	background-color: tomato;
+	color: white;
+	cursor: pointer;
+}
+
+select {
+	cursor: pointer;
+	background-color: white;
+	padding: 10px;
+	border: solid 0.2em tomato;
+}
+
+input {
+	border: solid tomato 0.5px;
+	padding: 0.5em;
+	border-radius: 0.5em;
+}
+
+#staff {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#animal {
+}
+
+#animalList {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+#clean {
+}
+
+.animalCard {
+	display: flex;
+	border: solid gold 2px;
+	border-radius: 15px;
+	margin: 0.5rem;
+	width: 20em;
+	align-items: center;
+	justify-content: space-around;
+}

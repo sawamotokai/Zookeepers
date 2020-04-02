@@ -7,6 +7,7 @@ CREATE TABLE Staff (
 		ID INTEGER PRIMARY KEY auto_increment,
 		Name CHAR(255)
 );
+
 CREATE TABLE Cage (
 	ID INT PRIMARY KEY auto_increment,
 	Size INTEGER ,
