@@ -81,6 +81,14 @@ app.get('/guest/count', (req,res) => {
 	});
 });
 
+app.get('/guest/demographic', (req,res) => {
+	con.query('SELECT count(*) FROM Ticket', (error, results, fields) => {
+		if (error) throw error;
+		console.log(results);
+		return res.status(200).render('demographic', {guests: results, clickHandler: 'func1()'});
+	});
+});
+
 app.get('/guest/min', (req,res) => {
 	con.query('SELECT MIN(age) FROM guest', (error, results, fields) => {
 		if (error) throw error;
@@ -94,6 +102,22 @@ app.get('/guest/max', (req,res) => {
 		if (error) throw error;
 		console.log(results);
 		return res.status(200).render('guest_max', {guests: results, clickHandler: 'func1()'});
+	});
+});
+
+app.get('/show', (req,res) => {
+	con.query('SELECT show_name, show_time FROM shows', (error, results, fields) => {
+		if (error) throw error;
+		console.log(results);
+		return res.status(200).render('shows', {shows: results, clickHandler: 'func1()'});
+	});
+});
+
+app.get('/show/popular', (req,res) => {
+	con.query('SELECT Show_Name, COUNT(Guest_ID) FROM Watches GROUP BY Show_Name HAVING COUNT(Guest_ID) > 2', (error, results, fields) => {
+		if (error) throw error;
+		console.log(results);
+		return res.status(200).render('shows_popular', {shows: results, clickHandler: 'func1()'});
 	});
 });
 

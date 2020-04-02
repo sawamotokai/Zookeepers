@@ -299,11 +299,11 @@ VALUES (1, 1, now()),
 
 #Buys
 INSERT INTO buys(guest_entry_number, product_ID, time, payment_method)
-VALUES (1, 1, now(), "Cash"),
-(2, 1, now(), "Cash"),
-(3, 1, now(), "Credit"),
-(1, 3, now(), "Cash"),
-(1, 4, now(), "Cash");
+VALUES (1, 003, now(), "Cash"),
+(2, 003, now(), "Cash"),
+(3, 003, now(), "Credit"),
+(1, 003, now(), "Cash"),
+(1, 001, now(), "Cash");
 
 #Donates
 INSERT INTO donates
