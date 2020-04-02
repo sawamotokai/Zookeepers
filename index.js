@@ -31,7 +31,7 @@ app.listen(PORT, () => {
 
 app.post('/animal/new', (req, res) => {
 	const { name, age, kind } = req.body;
-	const q = `INSERT INTO animal (name, age, kind) VALUES ("${name}", ${age}, "${kind}")`;
+	const q = `INSERT INTO animal (Name, Age, Species) VALUES ("${name}", ${age}, "${kind}")`;
 	con.query(q, (error, result) => {
 		if (error) throw error;
 		console.log(result);
@@ -40,14 +40,77 @@ app.post('/animal/new', (req, res) => {
 });
 
 app.get('/animal', (req, res) => {
-	console.log(process.env.DB_HOST);
-	console.log(process.env.DB_NAME);
-	console.log(process.env.DB_USERNAME);
-	console.log(process.env.DB_PASSWORD);
-
-	con.query('SELECT * FROM animal', (error, results, fields) => {
+	const q = `SELECT * FROM animal a LEFT JOIN animal_meal am ON a.id=am.Animal_ID ORDER BY TIME`
+	con.query(q, (error, results, fields) => {
 		if (error) throw error;
-		// console.log(results[0].id);
-		res.status(200).json(results);
+		console.log(results);
+		return res.render('animal', {animals: results});
 	});
+});
+
+app.get('/staff', (req,res) => {
+	con.query('SELECT * FROM staff', (error, results, fields) => {
+		if (error) throw error;
+		return res.status(200).render('staff', {staffs: results, clickHandler: 'func1()'});
+	});
+});
+
+app.get('/guest', (req,res) => {
+	con.query('SELECT * FROM guest', (error, results, fields) => {
+		if (error) throw error;
+		console.log(results);
+		return res.status(200).render('guest', {guests: results, clickHandler: 'func1()'});
+	});
+});
+
+app.post('/guest/new', (req, res) => {
+	const {age, payment_method} = req.body;
+	const q = `INSERT INTO guest (Age, Payment_Method) VALUES (${age}, "${payment_method}")`;
+	con.query(q, (error, result) => {
+		if (error) throw error;
+		console.log(result);
+	});
+	return res.status(200).redirect('/guest');
+});
+
+app.get('/guest/count', (req,res) => {
+	con.query('SELECT COUNT(*) FROM guest', (error, results, fields) => {
+		if (error) throw error;
+		console.log(results);
+		return res.status(200).render('guest_total', {guests: results, clickHandler: 'func1()'});
+	});
+});
+
+app.get('/guest/min', (req,res) => {
+	con.query('SELECT MIN(age) FROM guest', (error, results, fields) => {
+		if (error) throw error;
+		console.log(results);
+		return res.status(200).render('guest_min', {guests: results, clickHandler: 'func1()'});
+	});
+});
+
+app.get('/guest/max', (req,res) => {
+	con.query('SELECT MAX(age) FROM guest', (error, results, fields) => {
+		if (error) throw error;
+		console.log(results);
+		return res.status(200).render('guest_max', {guests: results, clickHandler: 'func1()'});
+	});
+});
+
+// app.delete('/staff', (req,res) => {
+	
+// 	con.query(`DELETE FROM staff WHERE ID=${id}`, (error, results, fields) => {
+// 		if (error) throw error;
+// 		return res.status(200).render('staff', {staffs: results});
+// 	});
+// });
+
+app.post('/staff/new', (req, res) => {
+	const { name } = req.body;
+	const q = `INSERT INTO staff (Name) VALUES ("${name}")`;
+	con.query(q, (error, result) => {
+		if (error) throw error;
+		console.log(result);
+	});
+	return res.status(200).redirect('/staff');
 });
