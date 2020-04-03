@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zookeeper</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+
+  <body>
+    <div class="page">
+      <div class="header">
+          <h1 class="title">Zookeeper</h1>
+          </p>
+      </div>
+      
+      <h2>Staffs in our zoo</h2>
+      <ul>
+        <% for (var i =0; i < shows.length;  i++ ) { %>
+          <li/>  <%= shows[i].show_name %> <%="@"%> <%= shows[i].show_time %>
+          <% } %>
+      </ul>
+      <h2>New Staff</h2>
+      <button onclick="func1()">Find the todays most popular shows!</button>
+    </div>
+  </body>
+  <script>
+    function func1(){
+        window.location= '/show/popular';
+    }
+  </script>
+
+</html>

@@ -388,4 +388,11 @@ VALUES (1, 1, "Bear plushie", 10),
 (2, 2, "Bear plushie", 10),
 (3, 3, "Bear plushie", 10),
 (4, 4, "Dolphin mask", 15),
+<<<<<<< HEAD
 (5, 5, "Honey jar", 5);
+=======
+(5, 5, "Honey jar", 5);
+
+
+
+>>>>>>> c1d3228d3c006841933e4da67196101de3b5e6d3

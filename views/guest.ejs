@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zookeeper</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+
+  <body>
+    <div class="page">
+      <div class="header">
+          <h1 class="title">Guests</h1>
+          </p>
+      </div>
+      
+      <h2>Guests who have entered the zoo today</h2>
+      <ul>
+        <% for (var i =0; i < guests.length;  i++ ) { %>
+          <li/>  <%=guests[i].Entry_Number%> <%=", "%> <%=guests[i].Age%> <%=", "%> <%=guests[i].Payment_Method %>
+          <% } %>
+      </ul>
+      <h2>New Guest Entry</h2>
+      <form action="/guest/new" method="POST" class="form">
+        <label for="guestName">Name</label>
+        <input id="guestName" type="text" name="name" class="input" placeholder="Bob" required>
+        <button type="submit" class="btn">Create!</button>
+      </form>
+      <button onclick='func1()'>Total Guests</button>
+      <button onclick='func2()'>Youngest Guest</button>
+      <button onclick='func3()'>Oldest Guest</button>
+    </div>
+  </body>
+  <script>
+    function func1(){
+      window.location= '/guest/count';
+    }
+  
+    function func2(){
+      window.location= '/guest/min';
+    }
+
+    function func3(){
+      window.location= '/guest/max';
+    }
+  </script>
+
+</html>
