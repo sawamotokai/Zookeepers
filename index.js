@@ -3,6 +3,7 @@ const app = express();
 const mysql = require('mysql');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
+const uuid = require('uuid');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 dotenv.config();
@@ -75,6 +76,16 @@ app.post('/animal', (req, res) => {
 	return res.status(200).redirect('/');
 });
 
+// app.post('/animal/feed', (req, res) => {
+// 	const { animalId } = req.body;
+// 	const q = `REPLACE INTO Cleans (Animal_ID) VALUES (${animalId})`;
+// 	con.query(q, (error, result) => {
+// 		if (error) throw error;
+// 		console.log(result);
+// 		return res.status(200).redirect('/');
+// 	});
+// });
+
 app.post('/staff', (req, res) => {
 	const { name } = req.body;
 	const q = `INSERT INTO staff (Name) VALUES ("${name}")`;
@@ -92,12 +103,23 @@ app.post('/staff', (req, res) => {
 // 	});
 // });
 
-app.post('/cleanCage', (req, res) => {
+app.post('/cage/clean', (req, res) => {
 	const { cleaningStaff, cageToClean } = req.body;
 	const q = `REPLACE INTO Cleans (Zookeeper_ID, Cage_ID) VALUES (${cleaningStaff}, ${cageToClean})`;
 	con.query(q, (error, result) => {
 		if (error) throw error;
 		console.log(result);
 		return res.status(200).redirect('/');
+	});
+});
+
+app.get('/cage/dirty', (req, res) => {
+	const q =
+		`SELECT c.Location, DATE_FORMAT(cl.Date_Time, "%H:%i %M %D %a") AS Date_Time, c.Size FROM cage c, cleans cl` +
+		` WHERE c.ID=cl.Cage_ID and c.ID NOT IN (SELECT cl2.Cage_ID FROM Cleans cl2 WHERE cl2.Date_Time > ADDDATE(NOW(), INTERVAL -1 DAY))`;
+	con.query(q, (error, results, fields) => {
+		if (error) throw error;
+		console.log(results);
+		res.render('dirtyCage', { cages: results });
 	});
 });
