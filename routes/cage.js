@@ -19,4 +19,15 @@ router.post('/clean', (req, res) => {
 	});
 });
 
+router.get('/dirty', (req, res) => {
+	const q =
+		`SELECT DISTINCT c.Location, DATE_FORMAT(cl.Date_Time, "%H:%i %M %D %a") AS Date_Time, c.Size FROM cage c, cleans cl` +
+		` WHERE c.ID=cl.Cage_ID and c.ID NOT IN (SELECT cl2.Cage_ID FROM Cleans cl2 WHERE cl2.Date_Time > ADDDATE(NOW(), INTERVAL -1 DAY))`;
+	con.query(q, (error, results, fields) => {
+		if (error) throw error;
+		console.log(results);
+		res.render('dirtyCage', { cages: results });
+	});
+});
+
 module.exports = router;
