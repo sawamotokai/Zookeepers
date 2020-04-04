@@ -20,32 +20,17 @@
           <li/>  <%=shops[i].Location%> <%=", "%> <%=shops[i].Name%> <%=", "%> <%=shops[i].Hours %>
           <% } %>
       </ul>
-      <div class="guestForm">
-        <h2>New Guest</h2>
-        <form action="/guest/new" method="POST" class="form">
-          <label for="guestAge">Age</label>
-          <input id="guestAge" type="number" name="age" class="input" placeholder="10" required>
-          <label for="paymentType">Payment Method</label>
-          <input id="paymentType" type="text" name="payment_method" class="input" placeholder="Credit" required>
-          <button type="submit" class="btn">Create!</button>
-        </form>
-        </div>
-      <button onclick='func1()'>Total Guests</button>
-      <button onclick='func2()'>Youngest Guest</button>
-      <button onclick='func3()'>Oldest Guest</button>
+
+      <button onclick='func1()'>Popular Items</button>
+      <button onclick='func2()'>All Purchases</button>
     </div>
   </body>
   <script>
     function func1(){
-      window.location= '/guest/count';
+      window.location= '/shop/popularItems';
     }
-  
     function func2(){
-      window.location= '/guest/min';
-    }
-
-    function func3(){
-      window.location= '/guest/max';
+      window.location= '/shop/allPurchases';
     }
   </script>
 

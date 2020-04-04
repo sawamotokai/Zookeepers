@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 
 router.get('/popular', (req, res) => {
 	con.query(
-		'SELECT Show_Name, COUNT(Guest_ID) FROM Watches GROUP BY Show_Name HAVING COUNT(Guest_ID) > 2',
+		'SELECT Show_Name, COUNT(Guest_ID) FROM Watches GROUP BY Show_Name HAVING COUNT(Guest_ID) >= 2 ORDER BY COUNT(Guest_ID) DESC',
 		(error, results, fields) => {
 			if (error) throw error;
 			console.log(results);

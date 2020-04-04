@@ -18,31 +18,20 @@ router.get('/', (req, res) => {
 	});
 });
 
-router.post('/', (req, res) => {
-	const { name, age, kind } = req.body;
-	const q = `INSERT INTO animal (Name, Age, Species) VALUES ("${name}", ${age}, "${kind}")`;
-	con.query(q, (error, result) => {
+router.get('/allPurchases', (req, res) => {
+	con.query('SELECT buys.product_ID, buys.time, buys.payment_method FROM zookeeper.Gift_Shop_Item, zookeeper.Buys WHERE Gift_Shop_Item.Product_ID = Buys.Product_ID', (error, results, fields) => {
 		if (error) throw error;
-		console.log(result);
-	});
-	return res.status(200).redirect('/');
-});
-
-router.post('/feed', (req, res) => {
-	const { animalToFeed, mealAmount, mealType } = req.body;
-	const ID = uuidv4();
-	con.query(`SELECT DISTINCT Zookeeper_ID FROM animal WHERE ID=${animalToFeed}`, (error, results, fields) => {
-		if (error) throw error;
-		const { Zookeeper_ID } = results[0];
-		const q =
-			`INSERT INTO Animal_Meal (Animal_ID, ID, Amount, Zookeeper_ID, Type) ` +
-			`VALUES (${animalToFeed}, "${ID}", ${mealAmount}, ${Zookeeper_ID}, "${mealType}")`;
-		con.query(q, (error, result) => {
-			if (error) throw error;
-			console.log(result);
-			return res.status(200).redirect('/');
-		});
+		console.log(results);
+		return res.status(200).render('allPurchases', { sales: results });
 	});
 });
 
+
+router.get('/popularItems', (req, res) => {
+	con.query('SELECT Name, COUNT(*) FROM zookeeper.Gift_Shop_Item INNER JOIN zookeeper.Buys ON gift_shop_item.Product_ID = Buys.Product_ID group by Buys.Product_ID', (error, results, fields) => {
+		if (error) throw error;
+		console.log(results);
+		return res.status(200).render('popularItems', { popular: results });
+	});
+});
 module.exports = router;

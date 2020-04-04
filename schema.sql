@@ -1,4 +1,3 @@
-
 DROP DATABASE zookeeper;
 CREATE DATABASE zookeeper;
 USE zookeeper;
@@ -52,7 +51,7 @@ CREATE TABLE Animal_Meal (
 );
 
 CREATE TABLE Guest (
-	Entry_Number INT PRIMARY KEY auto_increment,
+	Entry_Number INT UNSIGNED PRIMARY KEY auto_increment,
 	Age INT,
 	Payment_Method varchar(100)
 );
@@ -81,7 +80,7 @@ CREATE TABLE Performs (
 );
 
 CREATE TABLE Charity (
-	charity_name CHAR(255) PRIMARY KEY
+	charity_name VARCHAR(255) PRIMARY KEY
 );
 
 
@@ -133,7 +132,7 @@ CREATE TABLE Gift_Shop_Item (
 
 CREATE TABLE Buys (
 	Purchase_Number INTEGER PRIMARY KEY AUTO_INCREMENT,
-	Guest_Entry_Number INTEGER NOT NULL,
+	Guest_Entry_Number INTEGER UNSIGNED NOT NULL,
 	Product_ID INTEGER NOT NULL,
 	Time DATETIME DEFAULT NOW(),
 	Payment_Method varchar(100),
@@ -156,7 +155,7 @@ CREATE TABLE Works_At (
 );
 
 CREATE TABLE Watches (
-	Guest_ID INTEGER,
+	Guest_ID INTEGER UNSIGNED,
 	Show_Name CHAR(255),
 	Date_Time DATETIME DEFAULT NOW(),
 	PRIMARY KEY(Guest_ID, Show_Name, Date_Time),
@@ -275,6 +274,7 @@ VALUES (20, "Cash"),
 (13, "Credit"),
 (67, "Coupon"),
 (89, "Cash"),
+(89, "Cash"),
 (68, "Cash");
 
 #Shop
@@ -284,10 +284,6 @@ VALUES ("1010 Zoo Road", "Bear Lovers", 8),
 ("2324 Grapevine Street", "The Wildlife", 8),
 ("896 Ocean Road", "Ocean Eyes", 8),
 ("1010 Sahara Street", "Desserts at the Desert", 8);
-
-#Charity
-INSERT INTO charity(Guest_Entry_Number, Charity_Name, Amount)
-VALUES ("World Wildlife"), ("Bees Forever"), ("Fish Friends"), ("Tree Huggers"), ("SPCA");
 
 #Cleans
 INSERT INTO cleans
@@ -306,12 +302,13 @@ VALUES (1, 003, now(), "Cash"),
 (1, 003, now(), "Cash"),
 (1, 001, now(), "Cash");
 
-#Donates
-INSERT INTO donates
-VALUES (001, "World Wildlife", 20),
-(0011, "Fish Friends", 50),
-(0010, "Bees Forever", 100),
-(008, "Bees Forever", 5);
+#Charity
+INSERT INTO charity(Charity_Name)
+VALUES ("World Wildlife"), ("Bees Forever"), ("Fish Friends"), ("Tree Huggers"), ("SPCA");
+
+#Donates    
+INSERT INTO donates(Guest_Entry_Number, Charity_Name, Amount)
+VALUES (001, "World Wildlife", 20);
 
 #Item_Availability
 INSERT INTO item_availability
@@ -382,7 +379,12 @@ VALUES (1, "Bear Feed", now()),
 (4, "Sloth Nap", now()),
 (5, "Camel Training", now()),
 (6, "Camel Training", now()),
-(7, "Camel Training", now());
+(7, "Sloth Nap", now()),
+(8, "Camel Training", now()),
+(9, "Sloth Nap", now()),
+(10, "Sloth Nap", now()),
+(11, "Sloth Nap", now());
+
 
 #Gift_Shop_Item
 INSERT INTO gift_shop_item
