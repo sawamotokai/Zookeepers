@@ -21,6 +21,19 @@ app.listen(process.env.PORT || PORT, () => {
 	console.log(`Server running on http://localhost:${PORT}`);
 });
 
+//load routes
+const animal = require('./routes/animal'); //modulized all routes to /ideas
+const staff = require('./routes/staff');
+const guest = require('./routes/guest');
+const show = require('./routes/show');
+const cage = require('./routes/cage');
+// Use routes
+app.use('/animal', animal); // anything that goes after /ideas/ pertains to ideas file
+app.use('/staff', staff);
+app.use('/guest', guest);
+app.use('/show', show);
+app.use('/cage', cage);
+
 app.get('/', (req, res) => {
 	let promises = [];
 	promises.push(
@@ -74,22 +87,14 @@ app.post('/animal', (req, res) => {
 	return res.status(200).redirect('/');
 });
 
-app.post('/staff', (req, res) => {
-	const { name } = req.body;
-	const q = `INSERT INTO staff (Name) VALUES ("${name}")`;
-	con.query(q, (error, result) => {
+app.get('/guest', (req, res) => {
+	con.query('SELECT * FROM guest', (error, results, fields) => {
 		if (error) throw error;
-		console.log(result);
+		console.log(results);
+		return res.status(200).render('guest', { guests: results, clickHandler: 'func1()' });
 	});
-	return res.status(200).redirect('/');
 });
 
-// app.delete('/staff', (req,res) => {
-// 	con.query(`DELETE FROM staff WHERE ID=${id}`, (error, results, fields) => {
-// 		if (error) throw error;
-// 		return res.status(200).render('staff', {staffs: results});
-// 	});
-// });
 
 app.post('/cleanCage', (req, res) => {
 	const { cleaningStaff, cageToClean } = req.body;
@@ -234,50 +239,11 @@ app.get('/donates/most', (req,res) => {
                 .catch((err) => console.error(err));
 });
 
-app.get('/donates/avg', (req,res) => {
-		let promises = [];
-        	promises.push(
-        		new Promise((resolve, reject) => {
-        			const q = 'SELECT Guest_Entry_Number, AVG(Amount) AS Avg FROM donates GROUP BY Guest_Entry_Number';
-        			con.query(q, (error, results, fields) => {
-        				if (error) reject(error);
-        				console.log(results);
-        				resolve({ donates: results });
-        				//return res.status(200).render('donates', {donates: results, clickHandler: 'func1()'});
-        			});
-        		})
-        	);
-        Promise.all(promises)
-                .then((results) => {
-                    let arg = {};
-                    results.forEach((result) => {
-                        arg = { ...arg, ...result };
-                    });
-                    res.render('donates_avg', arg);
-                })
-                .catch((err) => console.error(err));
-});
-
-app.get('/donates/topdonors', (req,res) => {
-		let promises = [];
-        	promises.push(
-        		new Promise((resolve, reject) => {
-        			const q = 'SELECT DISTINCT x.Guest_Entry_Number FROM donates AS x WHERE NOT EXISTS(SELECT * FROM charity AS y WHERE NOT EXISTS(SELECT z.Charity_Name FROM donates AS z WHERE z.Guest_Entry_Number = x.Guest_Entry_Number AND z.Charity_Name = y.charity_name))';
-        			con.query(q, (error, results, fields) => {
-        				if (error) reject(error);
-        				console.log(results);
-        				resolve({ donates: results });
-        				//return res.status(200).render('donates', {donates: results, clickHandler: 'func1()'});
-        			});
-        		})
-        	);
-        Promise.all(promises)
-                .then((results) => {
-                    let arg = {};
-                    results.forEach((result) => {
-                        arg = { ...arg, ...result };
-                    });
-                    res.render('donates_topdonors', arg);
-                })
-                .catch((err) => console.error(err));
-});
+app.post('/cage/clean', (req, res) => {
+	const { cleaningStaff, cageToClean } = req.body;
+	const q = `REPLACE INTO Cleans (Zookeeper_ID, Cage_ID) VALUES (${cleaningStaff}, ${cageToClean})`;
+	con.query(q, (error, result) => {
+		if (error) throw error;
+		console.log(result);
+		return res.status(200).redirect('/');
+	});

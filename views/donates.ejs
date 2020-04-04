@@ -17,17 +17,13 @@
       <h2>Donations to Charities</h2>
         <div id="animalList">
             <% for (var i =0; i < donates.length;  i++ ) { %>
-
             <div class="animalCard">
-
                 <h4><%= donates[i].Charity_Name %></h4>
                 <div class="animalDesc">
                     <p>Guest Number: <%= donates[i].Guest_Entry_Number%></p>
                     <p>Amount: <%= donates[i].Amount%></p>
                 </div>
             </div>
-
-
             <% } %>
         </div>
       <h2>Add New Donation</h2>
@@ -60,7 +56,6 @@
     function func1(){
       window.location= '/donates/sort';
     }
-
     function func2(){
       window.location= '/donates/most';
     }
