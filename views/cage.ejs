@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zookeeper</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+  <body>
+    <header>
+      <h1 class="title"><a href="http://localhost:2000/">🦧Zookeeper🦘</a></h1>
+  </header>
+    <main>
+      <section id="cage">
+      
+        <h2>🐠Areas in our zoo🦚</h2>
+        <form action="/cage/clean" method="POST" class="cleanForm">
+        <div class="animalList" id="cageList">
+          <% for (var i =0; i < cages.length;  i++ ) { %>
+            <label for="cage_<%= cages[i].ID%>">
+              <div class="animalCard clickable" onclick="checked()">
+              <input type="radio" name="cageToClean" value="<%= cages[i].ID%>" id="cage_<%= cages[i].ID%>">
+                  <h4><%= cages[i].Location%></h4>
+                  <div class="animalDesc">
+                    <p>Size: <%= cages[i].Size || "No infomation" %></p>
+                  </div>
+              </div>
+            </label>
+            
+            <% } %>
+        </div>
+      </div>
+
+      
+      <!-- <label for="animal_<%= animals[i].ID%>">
+        <div class="animalCard clickable" onclick="checked()">
+        <input type="radio" name="animalToFeed" value="<%= animals[i].ID%>" id="animal_<%= animals[i].ID%>">
+          <h4><%= animals[i].Name %> <%= animals[i].Gender === 'M' ? '♂' : '♀'%></h4>
+          <div class="animalDesc">
+            <p>Species: <%= animals[i].Species%></p>
+            <p>Age: <%= animals[i].Age%></p>
+          </div>
+        </div>
+      </label> -->
+
+        <div class="cleanCage" style="margin: 4em;">
+          <h3>🧹Who cleans which cage? Pick a staff and a cage🧹</h3>
+            <div class="dropDowns">
+              <label for="cleaningStaff">Pick a staff</label>
+              <select name="cleaningStaff" id="cleaningStaff">
+                <% for (var i =0; i < staffs.length;  i++ ) { %>
+                  <option value="<%= staffs[i].ID%>"><%= staffs[i].Name %></option>
+                  <% } %>
+              </select>
+            </div>
+            <button type="submit">Clean cage!</button>
+          </div>
+
+        </form>
+        <div class="dirtyCages">
+          <a href="http://localhost:2000/cage/dirty">Find Dirty Cages</a>
+      </div>
+      </section>
+   
+    </main>
+
+  </body>
+  <script>
+    const checked = () => {
+          const divs = Array.from(document.getElementById("cageList").getElementsByClassName("animalCard"));
+          for (let div of divs) {
+            let el = div.getElementsByTagName("input")[0];
+            if (el.checked) div.classList.add("checked");
+            else div.classList.remove("checked");
+          }
+        }
+  </script>
+</html>

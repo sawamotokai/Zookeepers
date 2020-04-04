@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zookeeper</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+</head>
+  <body>
+    <header>
+      <h1 class="title"><a href="http://localhost:2000/">🦧Zookeeper🦘</a></h1>
+  </header>
+    <main>
+    <section id="staff">
+      <div id="staffList">
+        <h2>💁‍♀️Staffs in our zoo💁🏻‍♂️</h2>
+        <% for (var i =0; i < staffs.length;  i++ ) { %>
+          <p><%= staffs[i].Name %></p>
+          <% } %>
+      </div>
+      
+      <h2>New Staff</h2>
+      <form action="/staff" method="POST" class="form">
+        <label for="staffName">Name</label>
+        <input id="staffName" type="text" name="name" class="input" placeholder="Bob" required>
+        <button type="submit" class="btn">Create!</button>
+      </form>
+    </div>
+    </section>
+
+    
+    </main>
+
+  </body>
+  <script>
+
+  </script>
+</html>
