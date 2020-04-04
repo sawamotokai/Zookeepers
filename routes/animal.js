@@ -18,6 +18,16 @@ router.get('/', (req, res) => {
 	});
 });
 
+router.post('/', (req, res) => {
+	const { name, age, kind } = req.body;
+	const q = `INSERT INTO animal (Name, Age, Species) VALUES ("${name}", ${age}, "${kind}")`;
+	con.query(q, (error, result) => {
+		if (error) throw error;
+		console.log(result);
+	});
+	return res.status(200).redirect('/');
+});
+
 router.post('/feed', (req, res) => {
 	const { animalToFeed, mealAmount, mealType } = req.body;
 	const ID = uuidv4();
