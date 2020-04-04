@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zookeeper</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+
+  <body>
+    <div class="page">
+      <div class="header">
+          <h1 class="title">💰Charities💖</h1>
+          </p>
+      </div>
+
+      <h2>Donations to Charities</h2>
+        <div id="animalList">
+            <% for (var i =0; i < donates.length;  i++ ) { %>
+            <div class="animalCard">
+                <h4><%= donates[i].Charity_Name %></h4>
+                <div class="animalDesc">
+                    <p>Guest Number: <%= donates[i].Guest_Entry_Number%></p>
+                    <p>Amount: <%= donates[i].Amount%></p>
+                </div>
+            </div>
+            <% } %>
+        </div>
+      <h2>Add New Donation</h2>
+      <form action="/donates/new" method="POST" class="form">
+        <div class="dropDowns">
+
+        <label for="guestNumber">Current Guests</label>
+        <select name="guestNumber" id="guestNumber">
+            <% for (var i =0; i < guest.length;  i++ ) { %>
+            <option value="<%= guest[i].Entry_Number%>"><%= guest[i].Entry_Number %></option>
+            <% } %>
+        </select>
+
+        <label for="charityName">Charity</label>
+        <input id="charityName" type="text" name="name" class="input" placeholder="Charity" required>
+        <label for="amount">Amount</label>
+        <input id="amount" type="number" name="amount" class="input" placeholder="10" required>
+        <button type="submit" class="btn">Create!</button>
+        </div>
+      <h2>Other Options</h2>
+      </form>
+      <button onclick='func1()'>Total Donations to Each Charity</button>
+      <button onclick='func2()'>Charity with the Most Donations</button>
+      <button onclick='func3()'>Average Donation Amount for Each Guest</button>
+      <button onclick='func4()'>Guests Who Donated to All Charities</button>
+      <button onclick='func5()'>Back to Zookeepers</button>
+    </div>
+  </body>
+  <script>
+    function func1(){
+      window.location= '/donates/sort';
+    }
+    function func2(){
+      window.location= '/donates/most';
+    }
+    function func3(){
+      window.location= '/donates/avg';
+    }
+    function func4(){
+          window.location= '/donates/topdonors';
+    }
+    function func5(){
+      window.location= '/';
+    }
+  </script>
+
+</html>

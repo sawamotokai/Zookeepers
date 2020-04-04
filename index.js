@@ -3,7 +3,6 @@ const app = express();
 const mysql = require('mysql');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
-const { v4: uuidv4 } = require('uuid');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 dotenv.config();
@@ -21,6 +20,19 @@ const con = mysql.createConnection({
 app.listen(process.env.PORT || PORT, () => {
 	console.log(`Server running on http://localhost:${PORT}`);
 });
+
+//load routes
+const animal = require('./routes/animal'); //modulized all routes to /ideas
+const staff = require('./routes/staff');
+const guest = require('./routes/guest');
+const show = require('./routes/show');
+const cage = require('./routes/cage');
+// Use routes
+app.use('/animal', animal); // anything that goes after /ideas/ pertains to ideas file
+app.use('/staff', staff);
+app.use('/guest', guest);
+app.use('/show', show);
+app.use('/cage', cage);
 
 app.get('/', (req, res) => {
 	let promises = [];
@@ -66,44 +78,9 @@ app.get('/', (req, res) => {
 		.catch((err) => console.error(err));
 });
 
-app.get('/animal', (req, res) => {
-	con.query('SELECT * FROM animal', (error, results, fields) => {
-		if (error) throw error;
-		// console.log(results);
-		return res.status(200).render('animal', { animals: results });
-	});
-});
-
 app.post('/animal', (req, res) => {
 	const { name, age, kind } = req.body;
 	const q = `INSERT INTO animal (Name, Age, Species) VALUES ("${name}", ${age}, "${kind}")`;
-	con.query(q, (error, result) => {
-		if (error) throw error;
-		console.log(result);
-	});
-	return res.status(200).redirect('/');
-});
-
-app.post('/animal/feed', (req, res) => {
-	const { animalToFeed, mealAmount, mealType } = req.body;
-	const ID = uuidv4();
-	con.query(`SELECT DISTINCT Zookeeper_ID FROM animal WHERE ID=${animalToFeed}`, (error, results, fields) => {
-		if (error) throw error;
-		const { Zookeeper_ID } = results[0];
-		const q =
-			`INSERT INTO Animal_Meal (Animal_ID, ID, Amount, Zookeeper_ID, Type) ` +
-			`VALUES (${animalToFeed}, "${ID}", ${mealAmount}, ${Zookeeper_ID}, "${mealType}")`;
-		con.query(q, (error, result) => {
-			if (error) throw error;
-			console.log(result);
-			return res.status(200).redirect('/');
-		});
-	});
-});
-
-app.post('/staff', (req, res) => {
-	const { name } = req.body;
-	const q = `INSERT INTO staff (Name) VALUES ("${name}")`;
 	con.query(q, (error, result) => {
 		if (error) throw error;
 		console.log(result);
@@ -179,13 +156,6 @@ app.get('/show/popular', (req, res) => {
 		}
 	);
 });
-
-// app.delete('/staff', (req,res) => {
-// 	con.query(`DELETE FROM staff WHERE ID=${id}`, (error, results, fields) => {
-// 		if (error) throw error;
-// 		return res.status(200).render('staff', {staffs: results});
-// 	});
-// });
 
 app.post('/cage/clean', (req, res) => {
 	const { cleaningStaff, cageToClean } = req.body;
