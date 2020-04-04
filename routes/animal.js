@@ -45,4 +45,15 @@ router.post('/feed', (req, res) => {
 	});
 });
 
+router.get('/animalstofeed', (req, res) => {
+	const q =
+		`SELECT DISTINCT a.Name, DATE_FORMAT(am.Time, "%H:%i %M %D %a") AS Time, am.Type FROM animal a, animal_meal am` +
+		` WHERE a.ID=am.Animal_ID and a.ID NOT IN (SELECT am2.Animal_ID FROM animal_meal am2 WHERE am2.Time > ADDDATE(NOW(), INTERVAL -6 HOUR))`;
+	con.query(q, (error, results, fields) => {
+		if (error) throw error;
+		console.log(results);
+		res.render('animalstoFeed', { animals: results });
+	});
+});
+
 module.exports = router;
