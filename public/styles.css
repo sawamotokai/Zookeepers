@@ -65,9 +65,6 @@ input {
 	background: pink;
 }
 
-.feedBtn {
-}
-
 #staff {
 	display: flex;
 	flex-direction: column;
