@@ -44,40 +44,35 @@ router.get('/', (req, res) => {
 		.catch((err) => console.error(err));
 });
 
-const executeQuery = function(sql) {
-	let retVal;
-	con.query(sql, (error, result) => {
-		if (error) {
-			throw error;
-		}
-		retVal = result;
-	});
-	return retVal;
+const executeQuery = async function(sql) {
+	return await con.query(sql);
 };
 
-const charityExists = function(charityName) {
-	const sql = `SELECT * FROM zookeeper.charity WHERE charity_name='${charityName}'`;
-	return Boolean(executeQuery(sql));
+const charityExists = async function(charityName) {
+    const sql = `SELECT * FROM zookeeper.charity WHERE charity_name='${charityName}'`;
+    return Boolean(await executeQuery(sql));
 };
 
-const addCharity = function(charityName) {
-	const sql = `INSERT INTO zookeeper.charity(charity_name) VALUES('${charityName}')`;
-	return executeQuery(sql);
+const addCharity = async function(charityName) {
+    const sql = `INSERT INTO zookeeper.charity(charity_name) VALUES('${charityName}')`;
+    return await executeQuery(sql);
 };
 
-const addDonation = function(guestId, charityName, donationAmount) {
-	const sql = `INSERT INTO zookeeper.donates(Guest_Entry_Number, Charity_Name, Amount) VALUES(${guestId}, '${charityName}', ${donationAmount})`;
-	return executeQuery(sql);
+const addDonation = async function(guestId, charityName, donationAmount) {
+    const sql = `INSERT INTO zookeeper.donates(Guest_Entry_Number, Charity_Name, Amount) VALUES(${guestId}, '${charityName}', ${donationAmount})`;
+    return await executeQuery(sql);
 };
 
-router.post('/new', (req, res) => {
+router.post('/new', async(req, res) => {
 	const { guestNumber, name, amount } = req.body;
-	if (!charityExists(name)) {
-		addCharity(name);
-	}
-	addDonation(guestNumber, name, amount);
+
+    if (!(await charityExists(name))) {
+        await addCharity(name);
+    }
+	await addDonation(guestNumber, name, amount);
+	
 	return res.status(200).redirect('/donates');
-});
+})
 
 router.get('/sort', (req, res) => {
 	let promises = [];
