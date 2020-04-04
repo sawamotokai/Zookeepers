@@ -28,6 +28,7 @@ const guest = require('./routes/guest');
 const show = require('./routes/show');
 const cage = require('./routes/cage');
 const donates = require('./routes/donates');
+const shop = require('./routes/shop');
 // Use routes
 app.use('/animal', animal); // anything that goes after /ideas/ pertains to ideas file
 app.use('/staff', staff);
@@ -35,6 +36,7 @@ app.use('/guest', guest);
 app.use('/show', show);
 app.use('/cage', cage);
 app.use('/donates', donates);
+app.use('/shop', shop);
 
 app.get('/', (req, res) => {
 	let promises = [];
