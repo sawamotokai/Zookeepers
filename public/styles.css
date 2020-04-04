@@ -18,13 +18,25 @@ main {
 	min-height: 50vh;
 }
 
+h1 a {
+	border: none;
+}
+
+a:visited {
+	color: black;
+} /* Visited link    */
+
+a:hover {
+	background-color: pink;
+}
+
 a {
 	text-decoration: none;
-	color: white;
-	background-color: tomato;
+	transition: 0.3s;
 	padding: 0.2em;
 	font-weight: 1;
 	margin: 0.2em;
+	border: 2px skyblue solid;
 	border-radius: 0.3em;
 }
 
@@ -81,6 +93,13 @@ input {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+}
+
+.cleanForm {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-evenly;
 }
 
 #animalList {

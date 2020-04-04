@@ -9,13 +9,56 @@ const con = mysql.createConnection({
 	database: process.env.DB_NAME
 });
 
+router.get('/', (req, res) => {
+	let promises = [];
+	promises.push(
+		new Promise((resolve, reject) => {
+			const q = `SELECT * FROM staff ORDER BY Name`;
+			con.query(q, (error, results, fields) => {
+				if (error) reject(error);
+				console.log(results);
+				resolve({ staffs: results });
+			});
+		})
+	);
+	promises.push(
+		new Promise((resolve, reject) => {
+			const q = `SELECT * FROM animal`;
+			con.query(q, (error, results, fields) => {
+				if (error) reject(error);
+				console.log(results);
+				resolve({ animals: results });
+			});
+		})
+	);
+	promises.push(
+		new Promise((resolve, reject) => {
+			const q = `SELECT * FROM cage`;
+			con.query(q, (error, results, fields) => {
+				if (error) reject(error);
+				console.log(results);
+				resolve({ cages: results });
+			});
+		})
+	);
+	Promise.all(promises)
+		.then((results) => {
+			let arg = {};
+			results.forEach((result) => {
+				arg = { ...arg, ...result };
+			});
+			res.render('cage', arg);
+		})
+		.catch((err) => console.error(err));
+});
+
 router.post('/clean', (req, res) => {
 	const { cleaningStaff, cageToClean } = req.body;
 	const q = `REPLACE INTO Cleans (Zookeeper_ID, Cage_ID) VALUES (${cleaningStaff}, ${cageToClean})`;
 	con.query(q, (error, result) => {
 		if (error) throw error;
 		console.log(result);
-		return res.status(200).redirect('/');
+		return res.status(200).redirect('/cage');
 	});
 });
 
