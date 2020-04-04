@@ -1,3 +1,4 @@
+
 DROP DATABASE zookeeper;
 CREATE DATABASE zookeeper;
 USE zookeeper;
@@ -6,6 +7,7 @@ CREATE TABLE Staff (
 		ID INTEGER PRIMARY KEY auto_increment,
 		Name CHAR(255)
 );
+
 CREATE TABLE Cage (
 	ID INT PRIMARY KEY auto_increment,
 	Size INTEGER ,
@@ -35,7 +37,7 @@ CREATE TABLE Animal (
 
 CREATE TABLE Animal_Meal (
 	Animal_ID INT,
-	ID VARCHAR(255),
+	ID INT,
 	Amount INT,
 	Time DATETIME DEFAULT NOW(),
 	Zookeeper_ID INTEGER, 
@@ -84,10 +86,10 @@ CREATE TABLE Charity (
 
 
 CREATE TABLE Donates (
-	Guest_Entry_Number INTEGER, 
-	Charity_Name CHAR(255),
-	Amount INTEGER ,
-	PRIMARY KEY (Guest_Entry_Number, Charity_Name),
+	ID INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	Guest_Entry_Number INTEGER UNSIGNED NOT NULL,
+	Charity_Name VARCHAR(255) NOT NULL,
+	Amount INTEGER DEFAULT 0.0,
 	CONSTRAINT FK_donator FOREIGN KEY (Guest_Entry_Number) REFERENCES Guest(Entry_Number),
 	CONSTRAINT FK_donatee FOREIGN KEY (Charity_Name) REFERENCES Charity(charity_name)
 );
@@ -208,18 +210,18 @@ CREATE TABLE Trains (
 
 #Staff
 INSERT INTO staff(name)
-VALUES("Bob Lamar"), 
-("Joe Pole"), 
+VALUES("Bob Lamar"),
+("Joe Pole"),
 ("Rosemary Thyme"),
-("Benedict Cucumber"), 
-("Raymond Li"), 
-("James Shook"), 
+("Benedict Cucumber"),
+("Raymond Li"),
+("James Shook"),
 ("Mario Lui"),
 ("Jessica Wang"),
-("Kendrick Lemont"), 
-("William Po"), 
-("Edward Chen"), 
-("Henry Pizaz"), 
+("Kendrick Lemont"),
+("William Po"),
+("Edward Chen"),
+("Henry Pizaz"),
 ("Loki Lawrence");
 
 #Cage
@@ -245,7 +247,7 @@ VALUES(2, 1, 3, "Bear", "M", "Bob", 20),
 INSERT INTO animal_meal
 VALUES (1, 1, 20, now(), 5, "Fish"),
 (2, 1, 30, now(), 5, "Fish"),
-(3, 1, 5, now(), 5, "Fish"), 
+(3, 1, 5, now(), 5, "Fish"),
 (3, 4, 10, now(), 9, "Pork"),
 (5, 5, 16, now(), 7, "Pork"),
 (6, 6, 17, now(), 8, "Lettuce"),
@@ -284,7 +286,7 @@ VALUES ("1010 Zoo Road", "Bear Lovers", 8),
 ("1010 Sahara Street", "Desserts at the Desert", 8);
 
 #Charity
-INSERT INTO charity
+INSERT INTO charity(Guest_Entry_Number, Charity_Name, Amount)
 VALUES ("World Wildlife"), ("Bees Forever"), ("Fish Friends"), ("Tree Huggers"), ("SPCA");
 
 #Cleans
@@ -362,7 +364,7 @@ VALUES ("Bear Feed", now(), 1, 1),
 
 #Trains
 INSERT INTO trains
-VALUES (1, 1), 
+VALUES (1, 1),
 (1, 2),
 (1, 3),
 (2, 4),
@@ -388,11 +390,4 @@ VALUES (1, 1, "Bear plushie", 10),
 (2, 2, "Bear plushie", 10),
 (3, 3, "Bear plushie", 10),
 (4, 4, "Dolphin mask", 15),
-<<<<<<< HEAD
 (5, 5, "Honey jar", 5);
-=======
-(5, 5, "Honey jar", 5);
-
-
-
->>>>>>> c1d3228d3c006841933e4da67196101de3b5e6d3

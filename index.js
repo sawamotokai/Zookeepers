@@ -3,7 +3,6 @@ const app = express();
 const mysql = require('mysql');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
-const { v4: uuidv4 } = require('uuid');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 dotenv.config();
@@ -29,7 +28,7 @@ app.get('/', (req, res) => {
 			const q = `SELECT * FROM staff ORDER BY Name`;
 			con.query(q, (error, results, fields) => {
 				if (error) reject(error);
-				// console.log(results);
+				console.log(results);
 				resolve({ staffs: results });
 			});
 		})
@@ -39,7 +38,7 @@ app.get('/', (req, res) => {
 			const q = `SELECT * FROM animal`;
 			con.query(q, (error, results, fields) => {
 				if (error) reject(error);
-				// console.log(results);
+				console.log(results);
 				resolve({ animals: results });
 			});
 		})
@@ -49,12 +48,11 @@ app.get('/', (req, res) => {
 			const q = `SELECT * FROM cage`;
 			con.query(q, (error, results, fields) => {
 				if (error) reject(error);
-				// console.log(results);
+				console.log(results);
 				resolve({ cages: results });
 			});
 		})
 	);
-
 	Promise.all(promises)
 		.then((results) => {
 			let arg = {};
@@ -64,14 +62,6 @@ app.get('/', (req, res) => {
 			res.render('home', arg);
 		})
 		.catch((err) => console.error(err));
-});
-
-app.get('/animal', (req, res) => {
-	con.query('SELECT * FROM animal', (error, results, fields) => {
-		if (error) throw error;
-		// console.log(results);
-		return res.status(200).render('animal', { animals: results });
-	});
 });
 
 app.post('/animal', (req, res) => {
@@ -84,23 +74,6 @@ app.post('/animal', (req, res) => {
 	return res.status(200).redirect('/');
 });
 
-app.post('/animal/feed', (req, res) => {
-	const { animalToFeed, mealAmount, mealType } = req.body;
-	const ID = uuidv4();
-	con.query(`SELECT DISTINCT Zookeeper_ID FROM animal WHERE ID=${animalToFeed}`, (error, results, fields) => {
-		if (error) throw error;
-		const { Zookeeper_ID } = results[0];
-		const q =
-			`INSERT INTO Animal_Meal (Animal_ID, ID, Amount, Zookeeper_ID, Type) ` +
-			`VALUES (${animalToFeed}, "${ID}", ${mealAmount}, ${Zookeeper_ID}, "${mealType}")`;
-		con.query(q, (error, result) => {
-			if (error) throw error;
-			console.log(result);
-			return res.status(200).redirect('/');
-		});
-	});
-});
-
 app.post('/staff', (req, res) => {
 	const { name } = req.body;
 	const q = `INSERT INTO staff (Name) VALUES ("${name}")`;
@@ -111,75 +84,6 @@ app.post('/staff', (req, res) => {
 	return res.status(200).redirect('/');
 });
 
-app.get('/guest', (req, res) => {
-	con.query('SELECT * FROM guest', (error, results, fields) => {
-		if (error) throw error;
-		console.log(results);
-		return res.status(200).render('guest', { guests: results, clickHandler: 'func1()' });
-	});
-});
-
-app.post('/guest/new', (req, res) => {
-	const { age, payment_method } = req.body;
-	const q = `INSERT INTO guest (Age, Payment_Method) VALUES (${age}, "${payment_method}")`;
-	con.query(q, (error, result) => {
-		if (error) throw error;
-		console.log(result);
-	});
-	return res.status(200).redirect('/guest');
-});
-
-app.get('/guest/count', (req, res) => {
-	con.query('SELECT COUNT(*) FROM guest', (error, results, fields) => {
-		if (error) throw error;
-		console.log(results);
-		return res.status(200).render('guest_total', { guests: results, clickHandler: 'func1()' });
-	});
-});
-
-app.get('/guest/demographic', (req, res) => {
-	con.query('SELECT count(*) FROM Ticket', (error, results, fields) => {
-		if (error) throw error;
-		console.log(results);
-		return res.status(200).render('demographic', { tickets: results, clickHandler: 'func1()' });
-	});
-});
-
-app.get('/guest/min', (req, res) => {
-	con.query('SELECT MIN(age) FROM guest', (error, results, fields) => {
-		if (error) throw error;
-		console.log(results);
-		return res.status(200).render('guest_min', { guests: results, clickHandler: 'func1()' });
-	});
-});
-
-app.get('/guest/max', (req, res) => {
-	con.query('SELECT MAX(age) FROM guest', (error, results, fields) => {
-		if (error) throw error;
-		console.log(results);
-		return res.status(200).render('guest_max', { guests: results, clickHandler: 'func1()' });
-	});
-});
-
-app.get('/show', (req, res) => {
-	con.query('SELECT show_name, show_time FROM shows', (error, results, fields) => {
-		if (error) throw error;
-		console.log(results);
-		return res.status(200).render('shows', { shows: results, clickHandler: 'func1()' });
-	});
-});
-
-app.get('/show/popular', (req, res) => {
-	con.query(
-		'SELECT Show_Name, COUNT(Guest_ID) FROM Watches GROUP BY Show_Name HAVING COUNT(Guest_ID) > 2',
-		(error, results, fields) => {
-			if (error) throw error;
-			console.log(results);
-			return res.status(200).render('shows_popular', { shows: results, clickHandler: 'func1()' });
-		}
-	);
-});
-
 // app.delete('/staff', (req,res) => {
 // 	con.query(`DELETE FROM staff WHERE ID=${id}`, (error, results, fields) => {
 // 		if (error) throw error;
@@ -187,7 +91,7 @@ app.get('/show/popular', (req, res) => {
 // 	});
 // });
 
-app.post('/cage/clean', (req, res) => {
+app.post('/cleanCage', (req, res) => {
 	const { cleaningStaff, cageToClean } = req.body;
 	const q = `REPLACE INTO Cleans (Zookeeper_ID, Cage_ID) VALUES (${cleaningStaff}, ${cageToClean})`;
 	con.query(q, (error, result) => {
@@ -197,13 +101,183 @@ app.post('/cage/clean', (req, res) => {
 	});
 });
 
-app.get('/cage/dirty', (req, res) => {
-	const q =
-		`SELECT c.Location, DATE_FORMAT(cl.Date_Time, "%H:%i %M %D %a") AS Date_Time, c.Size FROM cage c, cleans cl` +
-		` WHERE c.ID=cl.Cage_ID and c.ID NOT IN (SELECT cl2.Cage_ID FROM Cleans cl2 WHERE cl2.Date_Time > ADDDATE(NOW(), INTERVAL -1 DAY))`;
-	con.query(q, (error, results, fields) => {
+//new
+app.get('/donates', (req,res) => {
+	let promises = [];
+    	promises.push(
+    		new Promise((resolve, reject) => {
+    			const q = 'SELECT * FROM donates';
+    			con.query(q, (error, results, fields) => {
+    				if (error) reject(error);
+    				console.log(results);
+    				resolve({ donates: results });
+    				//return res.status(200).render('donates', {donates: results, clickHandler: 'func1()'});
+    			});
+    		})
+    	);
+	promises.push(
+        		new Promise((resolve, reject) => {
+        			const q = `SELECT * FROM guest ORDER BY Entry_Number`;
+        			con.query(q, (error, results, fields) => {
+        				if (error) reject(error);
+        				console.log(results);
+        				resolve({ guest: results });
+        			});
+        		})
+        	);
+    Promise.all(promises)
+            .then((results) => {
+                let arg = {};
+                results.forEach((result) => {
+                    arg = { ...arg, ...result };
+                });
+                res.render('donates', arg);
+            })
+            .catch((err) => console.error(err));
+});
+
+const executeQuery = function(sql) {
+    let retVal;
+	con.query(sql, (error, result) => {
+		if (error) {
+            throw error;
+        }
+		retVal = result;
+    });
+    return retVal;
+};
+
+const charityExists = function(charityName) {
+    const sql = `SELECT * FROM zookeeper.charity WHERE charity_name='${charityName}'`;
+    return Boolean(executeQuery(sql));
+};
+
+const addCharity = function(charityName) {
+    const sql = `INSERT INTO zookeeper.charity(charity_name) VALUES('${charityName}')`;
+    return executeQuery(sql);
+};
+
+const addDonation = function(guestId, charityName, donationAmount) {
+    const sql = `INSERT INTO zookeeper.donates(Guest_Entry_Number, Charity_Name, Amount) VALUES(${guestId}, '${charityName}', ${donationAmount})`;
+    return executeQuery(sql);
+};
+
+app.post('/donates/new', (req, res) => {
+    const {guestNumber, name, amount} = req.body;
+    if (!charityExists(name)) {
+        addCharity(name)
+    }
+    addDonation(guestNumber, name, amount);
+	return res.status(200).redirect('/donates');
+});
+
+app.get('/donates/sort', (req,res) => {
+		let promises = [];
+        	promises.push(
+        		new Promise((resolve, reject) => {
+        			const q = 'SELECT Charity_Name, SUM(Amount) AS Total FROM donates GROUP BY Charity_Name';
+        			con.query(q, (error, results, fields) => {
+        				if (error) reject(error);
+        				console.log(results);
+        				resolve({ donates: results });
+        				//return res.status(200).render('donates', {donates: results, clickHandler: 'func1()'});
+        			});
+        		})
+        	);
+    	/*promises.push(
+            		new Promise((resolve, reject) => {
+            			const q = `SELECT * FROM guest ORDER BY Entry_Number`;
+            			con.query(q, (error, results, fields) => {
+            				if (error) reject(error);
+            				console.log(results);
+            				resolve({ guest: results });
+            			});
+            		})
+            	);*/
+        Promise.all(promises)
+                .then((results) => {
+                    let arg = {};
+                    results.forEach((result) => {
+                        arg = { ...arg, ...result };
+                    });
+                    res.render('donates_sort', arg);
+                })
+                .catch((err) => console.error(err));
+	/*con.query('SELECT Charity_Name, SUM(Amount) FROM donates GROUP BY Charity_Name', (error, results, fields) => {
 		if (error) throw error;
 		console.log(results);
-		res.render('dirtyCage', { cages: results });
-	});
+		return res.status(200).render('donates_sort', {guests: results, clickHandler: 'func1()'});
+	});*/
+});
+
+app.get('/donates/most', (req,res) => {
+		let promises = [];
+        	promises.push(
+        		new Promise((resolve, reject) => {
+        			const q = 'SELECT Charity_Name, SUM(Amount) AS Total FROM donates GROUP BY Charity_Name ORDER BY Total DESC LIMIT 1';
+        			con.query(q, (error, results, fields) => {
+        				if (error) reject(error);
+        				console.log(results);
+        				resolve({ donates: results });
+        				//return res.status(200).render('donates', {donates: results, clickHandler: 'func1()'});
+        			});
+        		})
+        	);
+        Promise.all(promises)
+                .then((results) => {
+                    let arg = {};
+                    results.forEach((result) => {
+                        arg = { ...arg, ...result };
+                    });
+                    res.render('donates_most', arg);
+                })
+                .catch((err) => console.error(err));
+});
+
+app.get('/donates/avg', (req,res) => {
+		let promises = [];
+        	promises.push(
+        		new Promise((resolve, reject) => {
+        			const q = 'SELECT Guest_Entry_Number, AVG(Amount) AS Avg FROM donates GROUP BY Guest_Entry_Number';
+        			con.query(q, (error, results, fields) => {
+        				if (error) reject(error);
+        				console.log(results);
+        				resolve({ donates: results });
+        				//return res.status(200).render('donates', {donates: results, clickHandler: 'func1()'});
+        			});
+        		})
+        	);
+        Promise.all(promises)
+                .then((results) => {
+                    let arg = {};
+                    results.forEach((result) => {
+                        arg = { ...arg, ...result };
+                    });
+                    res.render('donates_avg', arg);
+                })
+                .catch((err) => console.error(err));
+});
+
+app.get('/donates/topdonors', (req,res) => {
+		let promises = [];
+        	promises.push(
+        		new Promise((resolve, reject) => {
+        			const q = 'SELECT DISTINCT x.Guest_Entry_Number FROM donates AS x WHERE NOT EXISTS(SELECT * FROM charity AS y WHERE NOT EXISTS(SELECT z.Charity_Name FROM donates AS z WHERE z.Guest_Entry_Number = x.Guest_Entry_Number AND z.Charity_Name = y.charity_name))';
+        			con.query(q, (error, results, fields) => {
+        				if (error) reject(error);
+        				console.log(results);
+        				resolve({ donates: results });
+        				//return res.status(200).render('donates', {donates: results, clickHandler: 'func1()'});
+        			});
+        		})
+        	);
+        Promise.all(promises)
+                .then((results) => {
+                    let arg = {};
+                    results.forEach((result) => {
+                        arg = { ...arg, ...result };
+                    });
+                    res.render('donates_topdonors', arg);
+                })
+                .catch((err) => console.error(err));
 });

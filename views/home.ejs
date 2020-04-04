@@ -21,25 +21,26 @@
       <div id="staffList">
         <h2>💁‍♀️Staffs in our zoo💁🏻‍♂️</h2>
         <% for (var i =0; i < staffs.length;  i++ ) { %>
+          <!-- <input type="radio" id="staff_<%= staffs[i].ID %>" name="staffId" value="<%= staffs[i].ID %>"> -->
+          <!-- <label for="staff_<%= staffs[i].ID %>"><%= staffs[i].Name %></label><br> -->
           <p><%= staffs[i].Name %></p>
           <% } %>
       </div>
-      <div class="addStaff">
-
+      
       <h2>New Staff</h2>
       <form action="/staff" method="POST" class="form">
         <label for="staffName">Name</label>
         <input id="staffName" type="text" name="name" class="input" placeholder="Bob" required>
         <button type="submit" class="btn">Create!</button>
       </form>
-      </div>
+      <button onclick="func1()">Do something!</button>
     </div>
     </section>
 
     <section id="cleans">
        <div class="cleanCage">
         <h3>🧹Who cleans which cage? Pick a staff and a cage🧹</h3>
-        <form action="cage/clean" method="POST">
+        <form action="cleanCage" method="POST">
           <div class="dropDowns">
             <label for="cleaningStaff">Pick a staff</label>
             <select name="cleaningStaff" id="cleaningStaff">
@@ -56,29 +57,49 @@
           </div>
           <button type="submit">Clean cage!</button>
         </form>
+
         <div class="dirtyCages">
-          <a href="http://localhost:2000/cage/dirty">Find Dirty Cages</a>
+          
         </div>
        </div>
-      </section>
+        
+    </section>
 
     <section id="animal">
       <h2>🐘Animals in our zoo🦒</h2>
       <div id="animalList">
         <% for (var i =0; i < animals.length;  i++ ) { %>
+          <!-- <label for="animal_<%= animals[i].ID %>"> -->
           <div class="animalCard">
+            <!-- <input type="radio" class="radioBtn" id="animal_<%= animals[i].ID %>" name="animalId" value="<%= animals[i].ID %>"> -->
                 <h4><%= animals[i].Name %> <%= animals[i].Gender === 'M' ? '♂' : '♀'%></h4>
                 <div class="animalDesc">
                   <p>Species: <%= animals[i].Species%></p>
                   <p>Age: <%= animals[i].Age%></p>
                 </div>
           </div>
+        <!-- </label><br> -->
+
           <% } %>
       </div>
-  
+    <div class="animalForm">
+      <h2>New Animal</h2>
+      <form action="/animal" method="POST" class="form">
+        <label for="animalName">Name</label>
+        <input id="animalName" type="text" name="name" class="input" placeholder="Atom" required>
+        <label for="animalAge">Age</label>
+        <input id="animalAge" type="number" name="age" class="input" placeholder="7" required>
+        <label for="animalKind">Kind</label>
+        <input id="animalKind" type="text" name="kind" class="input" placeholder="cat" required>
+        <button type="submit" class="btn">Create!</button>
+      </form>
+      </div>
+        <h2>Donations to Charities:</h2>
+        </form>
+        <button onclick='func3()'>Click here!</button>
     </section>
     </main>
-      
+
   </body>
   <script>
   // DEFINE FUNCTIONS HERE!
@@ -86,9 +107,33 @@
     function func1(){
       console.log("I am in the click handler 1!"); 
     }
+    const cleanCage = () => {
+      // THIS IS ONE WAY TO SEND A HTTP REQUEST!!
+      // const Http = new XMLHttpRequest();
+      // let staffId = Array.from(document.getElementById("staffList").getElementsByTagName("input"));
+      // let cageId = Array.from(document.getElementById("cageList").getElementsByTagName("input"));
+      let staffId = Array.from(document.getElementById("staffList").getElementsByTagName("input")).filter(input=>input.checked)[0].value;
+      let cageId = Array.from(document.getElementById("cageList").getElementsByTagName("input")).filter(input=>input.checked)[0].value;
+      console.log(staffId);
+      console.log(cageId);
+
+      const url=`https://localhost:2000/cleanCage/${staffId}/${cageId}`;
+      // Http.open("GET", url);
+      // Http.send();
+      
+      // Http.onreadystatechange = (e) => {
+      //   console.log(Http.responseText)
+      // }
+      // const axios = require('axios');
+
+      // fetch(url).then(data=>data.json()).then(res => console.log(res)).catch(err => console.error(err));
+    }
 
     function func2(){
       console.log("I am in the click handler 2!"); 
+    }
+    function func3(){
+      window.location= '/donates';
     }
   </script>
 </html>
