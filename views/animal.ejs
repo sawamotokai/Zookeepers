@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zookeeper</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+  <body>
+    <header>
+      <div class="header">
+        <h1 class="title">🦧Zookeeper🦘</h1>
+        </p>
+    </div>
+    </header>
+    <main>
+
+    <section id="animal">
+      <div class="feedAnimal"></div>        
+        <form action="animal/feed" method="POST" class="feedForm">
+          <h3>🍏Feed selected animal🥕</h3>
+
+          <div class="animalFormDetail">
+            <label for="mealAmount">Number of Servings ⚖️</label>
+            <input type="number" name="mealAmount" id="mealAmount" value="1" required>
+            <label for="mealType">Meal Type 🍆</label>
+            <input  type="text" name="mealType" id="mealType" placeholder="Eggplants" required>
+            <button id="feedBtn" type="submit"">Feed!!</button>
+          </div>
+          
+
+          <div id="animalList">
+            <% for (var i =0; i < animals.length;  i++ ) { %>
+              <label for="animal_<%= animals[i].ID%>">
+                <div class="animalCard clickable" onclick="checked()">
+                <input type="radio" name="animalToFeed" value="<%= animals[i].ID%>" id="animal_<%= animals[i].ID%>">
+                  <h4><%= animals[i].Name %> <%= animals[i].Gender === 'M' ? '♂' : '♀'%></h4>
+                  <div class="animalDesc">
+                    <p>Species: <%= animals[i].Species%></p>
+                    <p>Age: <%= animals[i].Age%></p>
+                  </div>
+                </div>
+              </label>
+              <% } %>
+          </div>
+        </form>
+      </div>
+
+
+    <div class="animalForm">
+      <h2>New Animal</h2>
+      <form action="/animal" method="POST" class="form">
+        <label for="animalName">Name</label>
+        <input id="animalName" type="text" name="name" class="input" placeholder="Atom" required>
+        <label for="animalAge">Age</label>
+        <input id="animalAge" type="number" name="age" class="input" placeholder="7" required>
+        <label for="animalKind">Kind</label>
+        <input id="animalKind" type="text" name="kind" class="input" placeholder="cat" required>
+        <button type="submit" class="btn">Create!</button>
+      </form>
+      </div>
+    </section>
+    </main>
+      
+  </body>
+
+  <script>
+    const checked = () => {
+      const divs = Array.from(document.getElementById("animalList").getElementsByClassName("animalCard"));
+      for (let div of divs) {
+        let el = div.getElementsByTagName("input")[0];
+        if (el.checked) div.classList.add("checked");
+        else div.classList.remove("checked");
+      }
+    }
+  </script>
+</html>

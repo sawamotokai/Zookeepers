@@ -21,18 +21,18 @@
       <div id="staffList">
         <h2>💁‍♀️Staffs in our zoo💁🏻‍♂️</h2>
         <% for (var i =0; i < staffs.length;  i++ ) { %>
-          <!-- <input type="radio" id="staff_<%= staffs[i].ID %>" name="staffId" value="<%= staffs[i].ID %>"> -->
-          <!-- <label for="staff_<%= staffs[i].ID %>"><%= staffs[i].Name %></label><br> -->
           <p><%= staffs[i].Name %></p>
           <% } %>
       </div>
-      
+      <div class="addStaff">
+
       <h2>New Staff</h2>
       <form action="/staff" method="POST" class="form">
         <label for="staffName">Name</label>
         <input id="staffName" type="text" name="name" class="input" placeholder="Bob" required>
         <button type="submit" class="btn">Create!</button>
       </form>
+      </div>
     </div>
     </section>
 
@@ -60,33 +60,7 @@
           <a href="http://localhost:2000/cage/dirty">Find Dirty Cages</a>
         </div>
        </div>
-    </section>
-
-    <section id="feeds">
-      <div class="feedAnimal">
-       <h3>🧹Who cleans which cage? Pick a staff and a cage🧹</h3>
-       <form action="cage/clean" method="POST">
-         <div class="dropDowns">
-           <label for="cleaningStaff">Pick a staff</label>
-           <select name="cleaningStaff" id="cleaningStaff">
-             <% for (var i =0; i < staffs.length;  i++ ) { %>
-               <option value="<%= staffs[i].ID%>"><%= staffs[i].Name %></option>
-               <% } %>
-           </select>
-           <label for="cageToClean">Pick a cage to clean</label>
-           <select name="cageToClean" id="cageToClean">
-             <% for (var i =0; i < cages.length;  i++ ) { %>
-               <option value="<%= cages[i].ID%>"><%= cages[i].Location %></option>
-               <% } %>
-           </select>
-         </div>
-         <button type="submit">Clean cage!</button>
-       </form>
-       <div class="dirtyCages">
-         <a href="http://localhost:2000/cage/dirty">Find Dirty Cages</a>
-       </div>
-      </div>
-   </section>
+      </section>
 
     <section id="animal">
       <h2>🐘Animals in our zoo🦒</h2>
@@ -99,21 +73,9 @@
                   <p>Age: <%= animals[i].Age%></p>
                 </div>
           </div>
-
           <% } %>
       </div>
-    <div class="animalForm">
-      <h2>New Animal</h2>
-      <form action="/animal" method="POST" class="form">
-        <label for="animalName">Name</label>
-        <input id="animalName" type="text" name="name" class="input" placeholder="Atom" required>
-        <label for="animalAge">Age</label>
-        <input id="animalAge" type="number" name="age" class="input" placeholder="7" required>
-        <label for="animalKind">Kind</label>
-        <input id="animalKind" type="text" name="kind" class="input" placeholder="cat" required>
-        <button type="submit" class="btn">Create!</button>
-      </form>
-      </div>
+  
     </section>
     </main>
       

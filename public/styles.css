@@ -52,6 +52,22 @@ input {
 	border-radius: 0.5em;
 }
 
+.clickable {
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+.clickable:hover {
+	background-color: pink;
+}
+
+.checked {
+	background: pink;
+}
+
+.feedBtn {
+}
+
 #staff {
 	display: flex;
 	flex-direction: column;
@@ -59,12 +75,22 @@ input {
 }
 
 #animal {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.feedForm {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 #animalList {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
+	justify-content: center;
 }
 
 #clean {

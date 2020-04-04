@@ -16,7 +16,7 @@
     </header>
     <main>
       <div class="dirtyCage">
-        <h3>These cages have not been cleaned today!</h3>
+        <h3><%= (cages.length === 0)? "All the cages are clean!" : "These cages have not been cleaned today!"%></h3>
         <div id="cageList">
           <% for (var i =0; i < cages.length; i++) { %>
             <div class="cageCard">

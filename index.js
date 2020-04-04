@@ -3,7 +3,7 @@ const app = express();
 const mysql = require('mysql');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
-const uuid = require('uuid');
+const { v4: uuidv4 } = require('uuid');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 dotenv.config();
@@ -29,7 +29,7 @@ app.get('/', (req, res) => {
 			const q = `SELECT * FROM staff ORDER BY Name`;
 			con.query(q, (error, results, fields) => {
 				if (error) reject(error);
-				console.log(results);
+				// console.log(results);
 				resolve({ staffs: results });
 			});
 		})
@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
 			const q = `SELECT * FROM animal`;
 			con.query(q, (error, results, fields) => {
 				if (error) reject(error);
-				console.log(results);
+				// console.log(results);
 				resolve({ animals: results });
 			});
 		})
@@ -49,7 +49,7 @@ app.get('/', (req, res) => {
 			const q = `SELECT * FROM cage`;
 			con.query(q, (error, results, fields) => {
 				if (error) reject(error);
-				console.log(results);
+				// console.log(results);
 				resolve({ cages: results });
 			});
 		})
@@ -66,6 +66,14 @@ app.get('/', (req, res) => {
 		.catch((err) => console.error(err));
 });
 
+app.get('/animal', (req, res) => {
+	con.query('SELECT * FROM animal', (error, results, fields) => {
+		if (error) throw error;
+		// console.log(results);
+		return res.status(200).render('animal', { animals: results });
+	});
+});
+
 app.post('/animal', (req, res) => {
 	const { name, age, kind } = req.body;
 	const q = `INSERT INTO animal (Name, Age, Species) VALUES ("${name}", ${age}, "${kind}")`;
@@ -76,15 +84,22 @@ app.post('/animal', (req, res) => {
 	return res.status(200).redirect('/');
 });
 
-// app.post('/animal/feed', (req, res) => {
-// 	const { animalId } = req.body;
-// 	const q = `REPLACE INTO Cleans (Animal_ID) VALUES (${animalId})`;
-// 	con.query(q, (error, result) => {
-// 		if (error) throw error;
-// 		console.log(result);
-// 		return res.status(200).redirect('/');
-// 	});
-// });
+app.post('/animal/feed', (req, res) => {
+	const { animalToFeed, mealAmount, mealType } = req.body;
+	const ID = uuidv4();
+	con.query(`SELECT DISTINCT Zookeeper_ID FROM animal WHERE ID=${animalToFeed}`, (error, results, fields) => {
+		if (error) throw error;
+		const { Zookeeper_ID } = results[0];
+		const q =
+			`INSERT INTO Animal_Meal (Animal_ID, ID, Amount, Zookeeper_ID, Type) ` +
+			`VALUES (${animalToFeed}, "${ID}", ${mealAmount}, ${Zookeeper_ID}, "${mealType}")`;
+		con.query(q, (error, result) => {
+			if (error) throw error;
+			console.log(result);
+			return res.status(200).redirect('/');
+		});
+	});
+});
 
 app.post('/staff', (req, res) => {
 	const { name } = req.body;
@@ -96,70 +111,73 @@ app.post('/staff', (req, res) => {
 	return res.status(200).redirect('/');
 });
 
-app.get('/guest', (req,res) => {
+app.get('/guest', (req, res) => {
 	con.query('SELECT * FROM guest', (error, results, fields) => {
 		if (error) throw error;
 		console.log(results);
-		return res.status(200).render('guest', {guests: results, clickHandler: 'func1()'});
+		return res.status(200).render('guest', { guests: results, clickHandler: 'func1()' });
 	});
 });
 
 app.post('/guest/new', (req, res) => {
-	const {age, payment_method} = req.body;
+	const { age, payment_method } = req.body;
 	const q = `INSERT INTO guest (Age, Payment_Method) VALUES (${age}, "${payment_method}")`;
 	con.query(q, (error, result) => {
 		if (error) throw error;
-		console.log(result);	
+		console.log(result);
 	});
 	return res.status(200).redirect('/guest');
 });
 
-app.get('/guest/count', (req,res) => {
+app.get('/guest/count', (req, res) => {
 	con.query('SELECT COUNT(*) FROM guest', (error, results, fields) => {
 		if (error) throw error;
 		console.log(results);
-		return res.status(200).render('guest_total', {guests: results, clickHandler: 'func1()'});
+		return res.status(200).render('guest_total', { guests: results, clickHandler: 'func1()' });
 	});
 });
 
-app.get('/guest/demographic', (req,res) => {
+app.get('/guest/demographic', (req, res) => {
 	con.query('SELECT count(*) FROM Ticket', (error, results, fields) => {
 		if (error) throw error;
 		console.log(results);
-		return res.status(200).render('demographic', {guests: results, clickHandler: 'func1()'});
+		return res.status(200).render('demographic', { tickets: results, clickHandler: 'func1()' });
 	});
 });
 
-app.get('/guest/min', (req,res) => {
+app.get('/guest/min', (req, res) => {
 	con.query('SELECT MIN(age) FROM guest', (error, results, fields) => {
 		if (error) throw error;
 		console.log(results);
-		return res.status(200).render('guest_min', {guests: results, clickHandler: 'func1()'});
+		return res.status(200).render('guest_min', { guests: results, clickHandler: 'func1()' });
 	});
 });
 
-app.get('/guest/max', (req,res) => {
+app.get('/guest/max', (req, res) => {
 	con.query('SELECT MAX(age) FROM guest', (error, results, fields) => {
 		if (error) throw error;
 		console.log(results);
-		return res.status(200).render('guest_max', {guests: results, clickHandler: 'func1()'});
+		return res.status(200).render('guest_max', { guests: results, clickHandler: 'func1()' });
 	});
 });
 
-app.get('/show', (req,res) => {
+app.get('/show', (req, res) => {
 	con.query('SELECT show_name, show_time FROM shows', (error, results, fields) => {
 		if (error) throw error;
 		console.log(results);
-		return res.status(200).render('shows', {shows: results, clickHandler: 'func1()'});
+		return res.status(200).render('shows', { shows: results, clickHandler: 'func1()' });
 	});
 });
 
-app.get('/show/popular', (req,res) => {
-	con.query('SELECT Show_Name, COUNT(Guest_ID) FROM Watches GROUP BY Show_Name HAVING COUNT(Guest_ID) > 2', (error, results, fields) => {
-		if (error) throw error;
-		console.log(results);
-		return res.status(200).render('shows_popular', {shows: results, clickHandler: 'func1()'});
-	});
+app.get('/show/popular', (req, res) => {
+	con.query(
+		'SELECT Show_Name, COUNT(Guest_ID) FROM Watches GROUP BY Show_Name HAVING COUNT(Guest_ID) > 2',
+		(error, results, fields) => {
+			if (error) throw error;
+			console.log(results);
+			return res.status(200).render('shows_popular', { shows: results, clickHandler: 'func1()' });
+		}
+	);
 });
 
 // app.delete('/staff', (req,res) => {
