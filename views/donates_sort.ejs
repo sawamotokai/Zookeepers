@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zookeeper</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+<div class="page">
+    <div class="header">
+        <h1 class="title">💰Charities💖</h1>
+        </p>
+    </div>
+
+    <h2>Total Donations to Each Charity</h2>
+    <ul>
+        <% for (var i =0; i < donates.length;  i++ ) { %>
+        <li/> <p>Charity: %> <%=donates[i].Charity_Name%> <%=", Total Amount: "%> <%=donates[i].Total %>
+        <% } %>
+    </ul>
+    </form>
+    <button onclick='func1()'>Back to donations</button>
+</div>
+</body>
+<script>
+    function func1(){
+      window.location= '/donates';
+    }
+  </script>
+</html>
