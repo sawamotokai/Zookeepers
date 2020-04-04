@@ -16,8 +16,8 @@
       
       <h2>Guests who have entered the zoo today</h2>
       <ul>
-        <% for (var i =0; i < guests.length;  i++ ) { %>
-          <li/>  <%=guests[i].Entry_Number%> <%=", "%> <%=guests[i].Age%> <%=", "%> <%=guests[i].Payment_Method %>
+        <% for (var i =0; i < shops.length;  i++ ) { %>
+          <li/>  <%=shops[i].Location%> <%=", "%> <%=shops[i].Name%> <%=", "%> <%=shops[i].Hours %>
           <% } %>
       </ul>
       <div class="guestForm">
@@ -33,7 +33,6 @@
       <button onclick='func1()'>Total Guests</button>
       <button onclick='func2()'>Youngest Guest</button>
       <button onclick='func3()'>Oldest Guest</button>
-      <button onclick='func4()'>Demographic</button>
     </div>
   </body>
   <script>
@@ -47,10 +46,6 @@
 
     function func3(){
       window.location= '/guest/max';
-    }
-
-    function fun4(){
-      window.location='/guest/demographic'
     }
   </script>
 

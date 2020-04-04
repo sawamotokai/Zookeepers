@@ -36,7 +36,7 @@ router.get('/count', (req, res) => {
 });
 
 router.get('/demographic', (req, res) => {
-	con.query('SELECT count(*) FROM Ticket', (error, results, fields) => {
+	con.query('SELECT count(g) FROM Ticket as t, Guest as g GROUP BY Ticket.Age_Range', (error, results, fields) => {
 		if (error) throw error;
 		console.log(results);
 		return res.status(200).render('demographic', { guests: results, clickHandler: 'func1()' });
