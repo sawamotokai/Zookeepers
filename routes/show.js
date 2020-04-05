@@ -10,7 +10,7 @@ const con = mysql.createConnection({
 });
 
 router.get('/', (req, res) => {
-	con.query('SELECT show_name, (show_time) FROM shows', (error, results, fields) => {
+	con.query('SELECT show_name, (show_time), show_location FROM shows', (error, results, fields) => {
 		if (error) throw error;
 		console.log(results);
 		return res.status(200).render('shows', { shows: results, clickHandler: 'func1()' });
