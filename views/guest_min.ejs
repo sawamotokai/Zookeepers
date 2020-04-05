@@ -13,23 +13,18 @@
       <header>
         <h1 class="title"><a href="http://localhost:2000/">🦧Zookeeper🦘</a></h1>
     </header>
+
     <main>
-    <div class="page">
-      <h3><%="The youngest guest today is: "%> <%=guests[0]["MIN(age)"] %> <%=" years old!"%></h3>
-    </div>
+      <div class="page">
+        <h2>🤠Our Youngest Guest Today!🥳</h2>
+        <p>
+          <%="The youngest guest today is "%> <%=guests[0]["MIN(age)"] %> <%=" years old!"%>
+        </p>
+      </div>
     </main>  
 
   </body>
   <script>
-    function func1(){
-      console.log("I am in the click handler 1!"); 
-    }
-    const cleanCage = (staffId) => {
-      // clean cage
-    }
-    function func2(){
-      console.log("I am in the click handler 2!"); 
-    }
   </script>
 
 </html>

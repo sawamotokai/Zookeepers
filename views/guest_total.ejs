@@ -6,19 +6,19 @@
   <title>Zookeeper</title>
   <link rel="stylesheet" href="/styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-
 </head>
 
   <body>
+      <header>
+        <h1 class="title"><a href="http://localhost:2000/">🦧Zookeeper🦘</a></h1>
+    </header>
     <main>
       <div class="page">
-        <header>
-          <h1 class="title"><a href="http://localhost:2000/">🦧Zookeeper🦘</a></h1>
-      </header>
-        
-        <h2>Total Number of Guests Today</h2>
+      
+        <h2>🤠Current Number of Guests🥳
+        </h2>
         <ul>
-          <%="The total number of guests so far: "%> <%=guests[0]["COUNT(*)"] %> 
+          <%="The total number of guests so far is "%> <%=guests[0]["COUNT(*)"]  %> <%="."%>
         </ul>
       </div>
     </main>

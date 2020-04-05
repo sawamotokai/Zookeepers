@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
 </head>
 
   <body>
@@ -16,10 +17,10 @@
     <main>
     <div class="page">
       
-      <h2>Guests who have entered the zoo today</h2>
+      <h2>💰Our Zoo's Shops!🧸</h2>
       <ul>
         <% for (var i =0; i < shops.length;  i++ ) { %>
-          <li/>  <%=shops[i].Location%> <%=", "%> <%=shops[i].Name%> <%=", "%> <%=shops[i].Hours %>
+          <li/>  <%="Our shop"%> <%=shops[i].Name%> <%="is located at"%> <%=shops[i].Location%> <%="and its hours today are: "%><%=shops[i].Hours %>
           <% } %>
       </ul>
 
