@@ -397,7 +397,7 @@ VALUES (1, "Bear Feed", now()),
 #Gift_Shop_Item
 INSERT INTO gift_shop_item
 VALUES (1, 1, "Bear plushie", 10),
-(2, 2, "Bear plushie", 10),
-(3, 3, "Bear plushie", 10),
-(4, 4, "Dolphin mask", 15),
-(5, 5, "Honey jar", 5);
+(1, 2, "Bear plushie", 10),
+(1, 3, "Bear plushie", 10),
+(2, 4, "Dolphin mask", 15),
+(3, 5, "Honey jar", 5);
