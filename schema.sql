@@ -59,6 +59,7 @@ CREATE TABLE Guest (
 CREATE TABLE Shows (
 	show_name CHAR(255),
 	show_time DATETIME DEFAULT NOW(),
+	show_location CHAR(255),
 	PRIMARY KEY (show_name, show_time)
 );
 
@@ -96,7 +97,7 @@ CREATE TABLE Donates (
 CREATE TABLE Shop (
 	Location CHAR(255),
 	Name CHAR(255),
-	Hours INTEGER,
+	Hours VARCHAR(255),
 	PRIMARY KEY(Location, Name)
 );
 
@@ -279,11 +280,11 @@ VALUES (20, "Cash"),
 
 #Shop
 INSERT INTO shop
-VALUES ("1010 Zoo Road", "Bear Lovers", 8),
-("1020 Zoo Road", "Ice Ice Baby", 8),
-("2324 Grapevine Street", "The Wildlife", 8),
-("896 Ocean Road", "Ocean Eyes", 8),
-("1010 Sahara Street", "Desserts at the Desert", 8);
+VALUES ("1010 Zoo Road", "Bear Lovers", "09:00 - 17:00"),
+("1020 Zoo Road", "Ice Ice Baby", "09:00 - 17:00"),
+("2324 Grapevine Street", "The Wildlife", "10:00 - 15:00"),
+("896 Ocean Road", "Ocean Eyes", "10:00 - 15:00"),
+("1010 Sahara Street", "Desserts at the Desert", "09:00 - 17:00");
 
 #Cleans
 INSERT INTO cleans
@@ -309,6 +310,10 @@ VALUES ("World Wildlife"), ("Bees Forever"), ("Fish Friends"), ("Tree Huggers"),
 #Donates    
 INSERT INTO donates(Guest_Entry_Number, Charity_Name, Amount)
 VALUES (001, "World Wildlife", 20),
+(001, "Bees Forever", 20),
+(001, "Fish Friends", 20),
+(001, "Tree Huggers", 20),
+(001, "SPCA", 20),
 (010, "Bees Forever", 100),
 (009, "Bees Forever", 20),
 (004, "Tree Huggers", 15);
@@ -345,13 +350,13 @@ VALUES (001, "0-5", 1, 10),
 
 #Shows
 INSERT INTO shows
-VALUES ("Bear Feed", now()),
-("Penguin Dive", now()),
-("Penguin Feed", now()),
-("Sloth Nap", now()),
-("Camel Training", now()),
-("Polar Bears", now()),
-("Parrot Talk", now());
+VALUES ("Bear Feed", now(), "Forest"),
+("Penguin Dive", now(), "Snow"),
+("Penguin Feed", now(), "Snow"),
+("Sloth Nap", now(), "Forest"),
+("Camel Training", now(), "Desert"),
+("Polar Bears", now(), "Snow"),
+("Parrot Talk", now(), "Tropics");
 
 #Performs
 INSERT INTO performs
