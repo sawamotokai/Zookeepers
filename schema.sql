@@ -353,22 +353,33 @@ VALUES (001, "0-5", 1, 10),
 
 #Shows
 INSERT INTO shows
-VALUES ("Bear Feed", now(), "Forest"),
-("Penguin Dive", now(), "Snow"),
-("Penguin Feed", now(), "Snow"),
-("Sloth Nap", now(), "Forest"),
-("Camel Training", now(), "Desert"),
-("Polar Bears", now(), "Snow"),
-("Parrot Talk", now(), "Tropics");
+VALUES ("Bear Feed", adddate(NOW(), INTERVAL -5 HOUR), "Forest"),
+("Sloth Nap", adddate(NOW(), INTERVAL -3 HOUR), "Forest"),
+("Camel Training", adddate(NOW(), INTERVAL -1 HOUR), "Desert"),
+("Penguin Dive", adddate(NOW(), INTERVAL +1 HOUR), "Snow"),
+("Penguin Feed", adddate(NOW(), INTERVAL +1 HOUR), "Snow"),
+("Polar Bears", adddate(NOW(), INTERVAL +2 HOUR), "Snow"),
+("Parrot Talk", adddate(NOW(), INTERVAL +2 HOUR), "Tropics");
 
 #Performs
 INSERT INTO performs
-VALUES ("Bear Feed", now(), 1, 1),
-("Bear Feed", now(), 1, 2),
-("Bear Feed", now(), 1, 3),
-("Penguin Dive", now(), 2, 4),
-("Penguin Feed", now(), 2, 4),
-("Parrot Talk", now(), 4, 5);
+VALUES ("Bear Feed", adddate(NOW(), INTERVAL -5 HOUR), 1, 1),
+("Bear Feed", adddate(NOW(), INTERVAL -5 HOUR), 1, 2),
+("Bear Feed", adddate(NOW(), INTERVAL -5 HOUR), 1, 3),
+("Penguin Dive", adddate(NOW(), INTERVAL +1 HOUR), 2, 4),
+("Penguin Feed", adddate(NOW(), INTERVAL +1 HOUR), 2, 4),
+("Parrot Talk", adddate(NOW(), INTERVAL +2 HOUR), 4, 5);
+
+#Watches
+INSERT INTO watches
+VALUES (1, "Bear Feed", adddate(NOW(), INTERVAL -5 HOUR)),
+(2, "Bear Feed", adddate(NOW(), INTERVAL -5 HOUR)),
+(3, "Penguin Dive", adddate(NOW(), INTERVAL +1 HOUR)),
+(4, "Sloth Nap", adddate(NOW(), INTERVAL -3 HOUR)),
+(5, "Camel Training", adddate(NOW(), INTERVAL -1 HOUR)),
+(6, "Camel Training", adddate(NOW(), INTERVAL -1 HOUR)),
+(7, "Sloth Nap", adddate(NOW(), INTERVAL -3 HOUR)),
+(8, "Camel Training", adddate(NOW(), INTERVAL -1 HOUR));
 
 #Trains
 INSERT INTO trains
@@ -381,21 +392,6 @@ VALUES (1, 1),
 (4, 8),
 (3, 9),
 (4, 5);
-
-#Watches
-INSERT INTO watches
-VALUES (1, "Bear Feed", now()),
-(2, "Bear Feed", now()),
-(3, "Penguin Dive", now()),
-(4, "Sloth Nap", now()),
-(5, "Camel Training", now()),
-(6, "Camel Training", now()),
-(7, "Sloth Nap", now()),
-(8, "Camel Training", now()),
-(9, "Sloth Nap", now()),
-(10, "Sloth Nap", now()),
-(11, "Sloth Nap", now());
-
 
 #Gift_Shop_Item
 INSERT INTO gift_shop_item

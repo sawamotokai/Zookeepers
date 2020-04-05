@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/allPurchases', (req, res) => {
-	con.query('SELECT gift_shop_item.Name, buys.product_ID, buys.time, buys.payment_method FROM zookeeper.Gift_Shop_Item, zookeeper.Buys WHERE Gift_Shop_Item.Product_ID = Buys.Product_ID', (error, results, fields) => {
+	con.query('SELECT gift_shop_item.Name, buys.product_ID, DATE_FORMAT(buys.time, "%H:%i %M %D %a") as time, buys.payment_method FROM zookeeper.Gift_Shop_Item, zookeeper.Buys WHERE Gift_Shop_Item.Product_ID = Buys.Product_ID', (error, results, fields) => {
 		if (error) throw error;
 		console.log(results);
 		return res.status(200).render('allPurchases', { sales: results });
