@@ -197,4 +197,54 @@ router.get('/topdonors', (req, res) => {
 		.catch((err) => console.error(err));
 });
 
+router.get('/alldonors', (req, res) => {
+	let promises = [];
+	promises.push(
+		new Promise((resolve, reject) => {
+			const q =
+				'SELECT DISTINCT Guest_Entry_Number FROM donates';
+			con.query(q, (error, results, fields) => {
+				if (error) reject(error);
+				console.log(results);
+				resolve({ donates: results });
+				//return res.status(200).render('donates', {donates: results, clickHandler: 'func1()'});
+			});
+		})
+	);
+	Promise.all(promises)
+		.then((results) => {
+			let arg = {};
+			results.forEach((result) => {
+				arg = { ...arg, ...result };
+			});
+			res.render('donates_alldonors', arg);
+		})
+		.catch((err) => console.error(err));
+});
+
+router.get('/charitieswithdonations', (req, res) => {
+	let promises = [];
+	promises.push(
+		new Promise((resolve, reject) => {
+			const q =
+				'SELECT DISTINCT Charity_Name FROM donates';
+			con.query(q, (error, results, fields) => {
+				if (error) reject(error);
+				console.log(results);
+				resolve({ donates: results });
+				//return res.status(200).render('donates', {donates: results, clickHandler: 'func1()'});
+			});
+		})
+	);
+	Promise.all(promises)
+		.then((results) => {
+			let arg = {};
+			results.forEach((result) => {
+				arg = { ...arg, ...result };
+			});
+			res.render('donates_charitieswithdonations', arg);
+		})
+		.catch((err) => console.error(err));
+});
+
 module.exports = router;

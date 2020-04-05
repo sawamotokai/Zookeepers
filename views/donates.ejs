@@ -60,6 +60,8 @@
         <button onclick='func2()'>Charity with the Most Donations</button>
         <button onclick='func3()'>Average Donation Amount for Each Guest</button>
         <button onclick='func4()'>Guests Who Donated to All Charities</button>
+        <button onclick='func5()'>All Guests Who Donated</button>
+        <button onclick='func6()'>All Charities Who Have Received Donations</button>
       </div>
     </main>
   </body>
@@ -75,6 +77,12 @@
     }
     function func4(){
           window.location= '/donates/topdonors';
+    }
+    function func5(){
+     window.location= '/donates/alldonors';
+    }
+    function func6(){
+     window.location= '/donates/charitieswithdonations';
     }
     const checked = () => {
       const divs = Array.from(document.getElementById("animalList").getElementsByClassName("animalCard"));
