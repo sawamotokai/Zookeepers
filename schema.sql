@@ -245,15 +245,15 @@ VALUES(2, 1, 3, "Bear", "M", "Bob", 20),
 
 #Animal_Meal
 INSERT INTO animal_meal
-VALUES (1, 1, 20, now(), 5, "Fish"),
-(2, 1, 30, now(), 5, "Fish"),
+VALUES (1, 1, 20, adddate(NOW(), INTERVAL -13 HOUR), 5, "Fish"),
+(2, 1, 30, adddate(NOW(), INTERVAL -13 HOUR), 5, "Fish"),
 (3, 1, 5, now(), 5, "Fish"),
-(3, 4, 10, now(), 9, "Pork"),
+(3, 4, 10, adddate(NOW(), INTERVAL -13 HOUR), 9, "Pork"),
 (5, 5, 16, now(), 7, "Pork"),
-(6, 6, 17, now(), 8, "Lettuce"),
-(7, 7, 18, now(), 10, "Banana"),
+(6, 6, 17, adddate(NOW(), INTERVAL -13 HOUR), 8, "Lettuce"),
+(7, 7, 18, adddate(NOW(), INTERVAL -13 HOUR), 10, "Banana"),
 (9, 8, 29, now(), 12, "Pork"),
-(12, 9, 30, now(), 11, "Fish");
+(12, 9, 30, adddate(NOW(), INTERVAL -13 HOUR), 11, "Fish");
 
 #Product
 INSERT INTO product(Product_name)

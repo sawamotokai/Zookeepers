@@ -11,19 +11,54 @@ const con = mysql.createConnection({
 });
 
 router.get('/', (req, res) => {
-	con.query('SELECT * FROM animal', (error, results, fields) => {
-		if (error) throw error;
-		console.log(results);
-		return res.status(200).render('animal', { animals: results });
-	});
+	let promises = [];
+	promises.push(
+		new Promise((resolve, reject) => {
+			const q = `SELECT * FROM staff ORDER BY Name`;
+			con.query(q, (error, results, fields) => {
+				if (error) reject(error);
+				// console.log(results);
+				resolve({ staffs: results });
+			});
+		})
+	);
+	promises.push(
+		new Promise((resolve, reject) => {
+			const q = `SELECT * FROM animal`;
+			con.query(q, (error, results, fields) => {
+				if (error) reject(error);
+				// console.log(results);
+				resolve({ animals: results });
+			});
+		})
+	);
+	promises.push(
+		new Promise((resolve, reject) => {
+			const q = `SELECT * FROM cage`;
+			con.query(q, (error, results, fields) => {
+				if (error) reject(error);
+				// console.log(results);
+				resolve({ cages: results });
+			});
+		})
+	);
+	Promise.all(promises)
+		.then((results) => {
+			let arg = {};
+			results.forEach((result) => {
+				arg = { ...arg, ...result };
+			});
+			res.render('animal', arg);
+		})
+		.catch((err) => console.error(err));
 });
 
 router.post('/', (req, res) => {
-	const { name, age, kind } = req.body;
-	const q = `INSERT INTO animal (Name, Age, Species) VALUES ("${name}", ${age}, "${kind}")`;
+	const { name, age, kind, area, zookeeperId, vetId, gender } = req.body;
+	const q = `INSERT INTO animal (Name, Age, Species, Cage_ID, Vet_ID, Zookeeper_ID, Gender) VALUES ("${name}", ${age}, "${kind}", ${area}, ${vetId}, ${zookeeperId}, '${gender}')`;
 	con.query(q, (error, result) => {
 		if (error) throw error;
-		console.log(result);
+		// console.log(result);
 	});
 	return res.status(200).redirect('/animal');
 });
@@ -31,7 +66,7 @@ router.post('/', (req, res) => {
 router.get('/cage/:cageId', (req, res) => {
 	const { cageId } = req.params;
 	con.query(
-		`SELECT * FROM animal RIGHT OUTER JOIN cage ON animal.Cage_ID=cage.ID WHERE Cage_ID=${cageId}`,
+		`SELECT * FROM animal RIGHT OUTER JOIN cage ON animal.Cage_ID=cage.ID WHERE cage.ID=${cageId}`,
 		(error, results, fields) => {
 			if (error) throw error;
 			console.log(results);
@@ -51,7 +86,7 @@ router.post('/feed', (req, res) => {
 			`VALUES (${animalToFeed}, "${ID}", ${mealAmount}, ${Zookeeper_ID}, "${mealType}")`;
 		con.query(q, (error, result) => {
 			if (error) throw error;
-			console.log(result);
+			// console.log(result);
 			return res.status(200).redirect('/animal');
 		});
 	});
@@ -62,7 +97,7 @@ router.get('/edit/:id', (req, res) => {
 	const q = `SELECT * FROM animal WHERE ID=${id}`;
 	con.query(q, (error, results, fields) => {
 		if (error) throw error;
-		console.log(results);
+		// console.log(results);
 		return res.status(200).render('animalEdit', { animal: results[0] });
 	});
 });
@@ -73,7 +108,7 @@ router.post('/edit/:id', (req, res) => {
 	const q = `UPDATE animal SET Name='${name}', Age=${age}, Species='${species}' WHERE ID=${id}`;
 	con.query(q, (error, results) => {
 		if (error) throw error;
-		console.log(results);
+		// console.log(results);
 		return res.status(200).redirect('/animal');
 	});
 });
@@ -85,7 +120,7 @@ router.get('/animalstofeed', (req, res) => {
 		` WHERE a.ID=am.Animal_ID and a.ID NOT IN (SELECT am2.Animal_ID FROM animal_meal am2 WHERE am2.Time > ADDDATE(NOW(), INTERVAL -6 HOUR))`;
 	con.query(q, (error, results, fields) => {
 		if (error) throw error;
-		console.log(results);
+		// console.log(results);
 		res.render('animal_feed', { animals: results });
 	});
 });

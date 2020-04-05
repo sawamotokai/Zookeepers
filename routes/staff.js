@@ -14,7 +14,7 @@ router.post('/', (req, res) => {
 	const q = `INSERT INTO staff (Name) VALUES ("${name}")`;
 	con.query(q, (error, result) => {
 		if (error) throw error;
-		console.log(result);
+		// console.log(result);
 	});
 	return res.status(200).redirect('/staff');
 });
@@ -67,7 +67,7 @@ router.post('/delete/:id', (req, res) => {
 	const q = `DELETE FROM staff where ID=${id}`;
 	con.query(q, (error, result) => {
 		if (error) throw error;
-		console.log(result);
+		// console.log(result);
 	});
 	return res.status(200).redirect('/staff');
 });

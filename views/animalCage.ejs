@@ -21,23 +21,24 @@
 
     <section id="animal">
       <h2>🐇Animals in <%= animals[0].Location%> Area🐆</h2>
+      <% if (animals[0].Cage_ID) {%>
 
       <div class="feedAnimal"></div>        
-        <form action="animal/feed" method="POST" class="feedForm">
+        <form action="/animal/feed" method="POST" class="feedForm">
           <div id="animalList">
-            <% for (var i =0; i < animals.length;  i++ ) { %>
-              <label for="animal_<%= animals[i].ID%>">
-                <div class="animalCard clickable" onclick="checked()">
-                <input type="radio" name="animalToFeed" value="<%= animals[i].ID%>" id="animal_<%= animals[i].ID%>">
-                  <h4><%= animals[i].Name %> <%= animals[i].Gender === 'M' ? '♂' : '♀'%></h4>
-                  <div class="animalDesc">
-                    <p>Species: <%= animals[i].Species%></p>
-                    <p>Age: <%= animals[i].Age%></p>
+              <% for (var i =0; i < animals.length;  i++ ) { %>
+                <label for="animal_<%= animals[i].ID%>">
+                  <div class="animalCard clickable" onclick="checked()">
+                  <input type="radio" name="animalToFeed" value="<%= animals[i].ID%>" id="animal_<%= animals[i].ID%>">
+                    <h4><%= animals[i].Name %> <%= animals[i].Gender === 'M' ? '♂' : '♀'%></h4>
+                    <div class="animalDesc">
+                      <p>Species: <%= animals[i].Species%></p>
+                      <p>Age: <%= animals[i].Age%></p>
+                    </div>
                   </div>
-                </div>
-              </label>
-              <a href="/animal/edit/<%= animals[i].ID%>" style="border-radius: 0.5em; height: 1em; align-self: center;">Edit</a>
-              <% } %>
+                </label>
+                <a href="/animal/edit/<%= animals[i].ID%>" style="border-radius: 0.5em; height: 1em; align-self: center;">Edit</a>
+                <% } %>
           </div>
           <h3>🍏Feed selected animal🥕</h3>
 
@@ -64,6 +65,10 @@
               <button type="submit">Remove</button>
           </div>
       </form>
+      <% } else {%>
+        <h2>There are no animals in this area 😢</h2>
+        <% } %>
+
     </section>
     </main>
       
