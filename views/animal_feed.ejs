@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zookeeper</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+</head>
+  <body>
+    <header>
+      <div class="header">
+        <h1 class="title">🦧Zookeeper🦘</h1>
+        </p>
+    </div>
+    </header>
+    <main>
+      <div class="animalstoFeed">
+        <h3><%= (animals.length === 0)? "All the animals are fed!" : "These animals have not been fed!"%></h3>
+        <div id="cageList">
+          <% for (var i =0; i < animals.length; i++) { %>
+            <div class="cageCard">
+                  <h4><%= animals[i].Name %></h4>
+                  <div class="animalDesc">
+                    <p>Last fed: <%= animals[i].Time %></p>
+                    <p>Food type: <%= animals[i].Type || "No Data" %></p>
+                  </div>
+            </div>
+            <% } %>
+        </div>
+      </div>
+    </main>
+  </body>
+  <script>
+  // DEFINE FUNCTIONS HERE!
+  </script>
+</html>
