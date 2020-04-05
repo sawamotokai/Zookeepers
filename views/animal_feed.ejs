@@ -22,8 +22,8 @@
             <div class="cageCard">
                   <h4><%= animals[i].Name %></h4>
                   <div class="animalDesc">
-                    <p>Last fed: <%= animals[i].Time %></p>
-                    <p>Food type: <%= animals[i].Type || "No Data" %></p>
+                    <p>Last fed: <%= animals[i].Time || 'Never eaten anything 😅' %></p>
+                    <p>Food type: <%= animals[i].Type || 'Never eaten anything😅' %></p>
                   </div>
             </div>
             <% } %>

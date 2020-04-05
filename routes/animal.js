@@ -116,8 +116,8 @@ router.post('/edit/:id', (req, res) => {
 router.get('/animalstofeed', (req, res) => {
 	// query returns animals that have not been fed in 6hrs regardless of type of food
 	const q =
-		`SELECT DISTINCT a.Name, DATE_FORMAT(am.Time, "%H:%i %M %D %a") AS Time, am.Type FROM animal a, animal_meal am` +
-		` WHERE a.ID=am.Animal_ID and a.ID NOT IN (SELECT am2.Animal_ID FROM animal_meal am2 WHERE am2.Time > ADDDATE(NOW(), INTERVAL -6 HOUR))`;
+		`SELECT DISTINCT a.Name, DATE_FORMAT(am.Time, "%H:%i %M %D %a") AS Time, am.Type FROM animal a LEFT OUTER JOIN animal_meal am` +
+		` ON a.ID=am.Animal_ID WHERE a.ID NOT IN (SELECT am2.Animal_ID FROM animal_meal am2 WHERE am2.Time > ADDDATE(NOW(), INTERVAL -6 HOUR))`;
 	con.query(q, (error, results, fields) => {
 		if (error) throw error;
 		// console.log(results);
