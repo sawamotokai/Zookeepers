@@ -28,6 +28,18 @@ router.post('/', (req, res) => {
 	return res.status(200).redirect('/');
 });
 
+router.get('/cage/:cageId', (req, res) => {
+	const { cageId } = req.params;
+	con.query(
+		`SELECT * FROM animal RIGHT OUTER JOIN cage ON animal.Cage_ID=cage.ID WHERE Cage_ID=${cageId}`,
+		(error, results, fields) => {
+			if (error) throw error;
+			console.log(results);
+			return res.status(200).render('animalCage', { animals: results });
+		}
+	);
+});
+
 router.post('/feed', (req, res) => {
 	const { animalToFeed, mealAmount, mealType } = req.body;
 	const ID = uuidv4();

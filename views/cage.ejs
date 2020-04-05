@@ -9,7 +9,7 @@
 </head>
   <body>
     <header>
-      <h1 class="title"><a href="http://localhost:2000/">🦧Zookeeper🦘</a></h1>
+      <h1 class="title"><a href="/">🦧Zookeeper🦘</a></h1>
   </header>
     <main>
       <section id="cage">
@@ -20,20 +20,22 @@
           <% for (var i =0; i < cages.length;  i++ ) { %>
             <label for="cage_<%= cages[i].ID%>">
               <div class="animalCard clickable" onclick="checked()">
-              <input type="radio" name="cageToClean" value="<%= cages[i].ID%>" id="cage_<%= cages[i].ID%>">
+              <input type="radio" name="cageToClean" value="<%= cages[i].ID%>" id="cage_<%= cages[i].ID%>" required>
                   <h4><%= cages[i].Location%></h4>
                   <div class="animalDesc">
                     <p>Size: <%= cages[i].Size || "No infomation" %></p>
                   </div>
               </div>
             </label>
+            <a href="/animal/cage/<%= cages[i].ID%>" style="border-radius: 0.5em; height: 1em; align-self: center;">Animal in the Area</a>
             
             <% } %>
         </div>
       </div>
 
         <div class="cleanCage" style="margin: 4em;">
-          <h3>🧹Who cleans which cage? Pick a staff and a cage🧹</h3>
+          <h1>🧹Who cleans which cage? </h1><h1>   Pick a staff and an area</h1>
+          <form action="/cage/clean" method="POST">
             <div class="dropDowns">
               <label for="cleaningStaff">Pick a staff</label>
               <select name="cleaningStaff" id="cleaningStaff">
@@ -42,13 +44,12 @@
                   <% } %>
               </select>
             </div>
-            <button type="submit">Clean cage!</button>
+            <button type="submit" style="font-size: 1rem;">Clean the Area!</button>
           </div>
-
         </form>
-        <div class="dirtyCages">
-          <a href="http://localhost:2000/cage/dirty">Find Dirty Cages</a>
-      </div>
+        <div class="dirtyCages" style="margin-top: 2em;">
+          <a href="http://localhost:2000/cage/dirty" style="font-size: 1.5rem;">Find Dirty Areas🌳</a>
+        </div>
       </section>
    
     </main>

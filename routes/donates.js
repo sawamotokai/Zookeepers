@@ -33,6 +33,16 @@ router.get('/', (req, res) => {
 			});
 		})
 	);
+	promises.push(
+		new Promise((resolve, reject) => {
+			const q = `SELECT * FROM charity`;
+			con.query(q, (error, results, fields) => {
+				if (error) reject(error);
+				console.log(results);
+				resolve({ charities: results });
+			});
+		})
+	);
 	Promise.all(promises)
 		.then((results) => {
 			let arg = {};
@@ -49,30 +59,30 @@ const executeQuery = async function(sql) {
 };
 
 const charityExists = async function(charityName) {
-    const sql = `SELECT * FROM zookeeper.charity WHERE charity_name='${charityName}'`;
-    return Boolean(await executeQuery(sql));
+	const sql = `SELECT * FROM zookeeper.charity WHERE charity_name='${charityName}'`;
+	return Boolean(await executeQuery(sql));
 };
 
 const addCharity = async function(charityName) {
-    const sql = `INSERT INTO zookeeper.charity(charity_name) VALUES('${charityName}')`;
-    return await executeQuery(sql);
+	const sql = `INSERT INTO zookeeper.charity(charity_name) VALUES('${charityName}')`;
+	return await executeQuery(sql);
 };
 
 const addDonation = async function(guestId, charityName, donationAmount) {
-    const sql = `INSERT INTO zookeeper.donates(Guest_Entry_Number, Charity_Name, Amount) VALUES(${guestId}, '${charityName}', ${donationAmount})`;
-    return await executeQuery(sql);
+	const sql = `INSERT INTO zookeeper.donates(Guest_Entry_Number, Charity_Name, Amount) VALUES(${guestId}, '${charityName}', ${donationAmount})`;
+	return await executeQuery(sql);
 };
 
-router.post('/new', async(req, res) => {
-	const { guestNumber, name, amount } = req.body;
+router.post('/new', async (req, res) => {
+	const { guestNumber, Charity_Name, amount } = req.body;
 
-    if (!(await charityExists(name))) {
-        await addCharity(name);
-    }
-	await addDonation(guestNumber, name, amount);
-	
+	if (!await charityExists(Charity_Name)) {
+		await addCharity(Charity_Name);
+	}
+	await addDonation(guestNumber, Charity_Name, amount);
+
 	return res.status(200).redirect('/donates');
-})
+});
 
 router.get('/sort', (req, res) => {
 	let promises = [];
