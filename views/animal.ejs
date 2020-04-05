@@ -40,7 +40,7 @@
             <% for (var i =0; i < animals.length;  i++ ) { %>
               <label for="animal_<%= animals[i].ID%>">
                 <div class="animalCard clickable" onclick="checked()">
-                <input type="radio" name="animalToFeed" value="<%= animals[i].ID%>" id="animal_<%= animals[i].ID%>">
+                <input type="radio" name="animalToFeed" value="<%= animals[i].ID%>" id="animal_<%= animals[i].ID%>" required>
                   <h4><%= animals[i].Name %> <%= animals[i].Gender === 'M' ? '♂' : '♀'%></h4>
                   <div class="animalDesc">
                     <p>Species: <%= animals[i].Species%></p>

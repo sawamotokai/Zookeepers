@@ -25,7 +25,7 @@ router.post('/', (req, res) => {
 		if (error) throw error;
 		console.log(result);
 	});
-	return res.status(200).redirect('/');
+	return res.status(200).redirect('/animal');
 });
 
 router.get('/cage/:cageId', (req, res) => {
