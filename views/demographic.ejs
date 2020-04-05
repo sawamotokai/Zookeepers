@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zookeeper</title>
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="/styles.css">
 </head>
 
@@ -11,15 +13,24 @@
     <header>
       <h1 class="title"><a href="http://localhost:2000/">🦧Zookeeper🦘</a></h1>
   </header>
-    <div class="page">
+
+  <main>
+    <h2>Today's Guest Demographics</h2>
+    <div class="list">
+      <% for (var i =0; i < guests.length;  i++ ) { %>
+          <div class="animalCard">
+              <h4>Age Range <%= guests[i].AgeRange%></h4>
+              <div class="animalDesc">
+                <p>Total: <%= guests[i].Total || "No infomation" %></p>
+              </div>
+          </div>
+        <% } %>
+    </div>
+  </main>
     
       
-      <h2>Today's Guest Demographics</h2>
-      <ul>
-          <li/> <%= tickets[0]%>
-      </ul>
-      <h2>New Staff</h2>
-    </div>
+      
+
   </body>
   <script>
 
