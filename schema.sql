@@ -299,11 +299,11 @@ VALUES
 
 #Buys
 INSERT INTO buys(guest_entry_number, product_ID, time, payment_method)
-VALUES (1, 003, now(), "Cash"),
-(2, 003, now(), "Cash"),
-(3, 003, now(), "Credit"),
-(1, 003, now(), "Cash"),
-(1, 001, now(), "Cash");
+VALUES (1, 003, adddate(NOW(), INTERVAL -5 HOUR), "Cash"),
+(2, 003, adddate(NOW(), INTERVAL -5 HOUR), "Cash"),
+(3, 003, adddate(NOW(), INTERVAL -4 HOUR), "Credit"),
+(1, 003, adddate(NOW(), INTERVAL -3 HOUR), "Cash"),
+(1, 001, adddate(NOW(), INTERVAL -2 HOUR), "Cash");
 
 #Charity
 INSERT INTO charity(Charity_Name)
