@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 			const q = `SELECT * FROM staff ORDER BY Name`;
 			con.query(q, (error, results, fields) => {
 				if (error) reject(error);
-				console.log(results);
+				// console.log(results);
 				resolve({ staffs: results });
 			});
 		})
@@ -26,7 +26,7 @@ router.get('/', (req, res) => {
 			const q = `SELECT * FROM animal`;
 			con.query(q, (error, results, fields) => {
 				if (error) reject(error);
-				console.log(results);
+				// console.log(results);
 				resolve({ animals: results });
 			});
 		})
@@ -36,7 +36,7 @@ router.get('/', (req, res) => {
 			const q = `SELECT * FROM cage`;
 			con.query(q, (error, results, fields) => {
 				if (error) reject(error);
-				console.log(results);
+				// console.log(results);
 				resolve({ cages: results });
 			});
 		})
@@ -57,7 +57,7 @@ router.post('/clean', (req, res) => {
 	const q = `REPLACE INTO Cleans (Zookeeper_ID, Cage_ID) VALUES (${cleaningStaff}, ${cageToClean})`;
 	con.query(q, (error, result) => {
 		if (error) throw error;
-		console.log(result);
+		// console.log(result);
 		return res.status(200).redirect('/cage');
 	});
 });
@@ -68,7 +68,7 @@ router.get('/dirty', (req, res) => {
 		` ON c.ID=cl.Cage_ID WHERE c.ID NOT IN (SELECT cl2.Cage_ID FROM Cleans cl2 WHERE cl2.Date_Time > ADDDATE(NOW(), INTERVAL -12 HOUR))`;
 	con.query(q, (error, results, fields) => {
 		if (error) throw error;
-		console.log(results);
+		// console.log(results);
 		res.render('dirtyCage', { cages: results });
 	});
 });
