@@ -4,19 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zookeeper</title>
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
 </head>
 
   <body>
-    <div class="page">
       <header>
         <h1 class="title"><a href="http://localhost:2000/">🦧Zookeeper🦘</a></h1>
     </header>
       
-      <h2>All Sales Today</h2>
+      <h2>💰All Sales from Today!🧸</h2>
       <ul>
         <% for (var i =0; i < sales.length;  i++ ) { %>
-          <li/> <%= sales[i].product_ID %> <%= sales[i].time %> <%= sales[i].payment_method %>
+          <li/> <%= "Product #"%> <%= sales[i].product_ID %> <%= "was sold on "%> <%= sales[i].time%> <%="."%> <%="The guest paid by"%> <%= sales[i].payment_method %>
           <% } %>
       </ul>
     </div>
