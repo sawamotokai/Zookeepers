@@ -15,11 +15,12 @@
   </header>
 
   <main>
-    <h2>Today's Guest Demographics</h2>
     <div class="list">
+    <h2>Today's Guest Demographics</h2>
+
       <% for (var i =0; i < guests.length;  i++ ) { %>
           <div class="animalCard">
-              <h4>Age Range <%= guests[i].AgeRange%></h4>
+              <h4>Age Range: <%= guests[i].AgeRange%></h4>
               <div class="animalDesc">
                 <p>Total: <%= guests[i].Total || "No infomation" %></p>
               </div>
