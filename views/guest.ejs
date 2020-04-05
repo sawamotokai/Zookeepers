@@ -11,37 +11,38 @@
 </head>
 
   <body>
-    <div class="page">
-      <header>
-        <h1 class="title"><a href="http://localhost:2000/">🦧Zookeeper🦘</a></h1>
-    </header>
- 
-      <h2>🤠Our Guests Today!🥳</h2>
-
-      <ul>
-        <% for (var i =0; i < guests.length;  i++ ) { %>
-          <li/>  <%="Guest ID [" %> <%=guests[i].Entry_Number%> <%="] is "%> <%=guests[i].Age%> <%="years old, and paid by "%> <%=guests[i].Payment_Method %>
-          <% } %>
-      </ul>
-      <div class="guestForm">
-        <h2>New Guest</h2>
-        <form action="/guest/new" method="POST" class="form">
-          <label for="guestAge">Age</label>
-          <input id="guestAge" type="number" name="age" class="input" placeholder="10" required>
-          <label for="paymentType">Payment Method</label>
-          <input id="paymentType" type="text" name="payment_method" class="input" placeholder="Credit" required>
-          <button type="submit" class="btn">Welcome to the Zoo!</button>
-        </form>
+    
+        <header>
+          <h1 class="title"><a href="http://localhost:2000/">🦧Zookeeper🦘</a></h1>
+      </header>
+      
+    <main>
+      <div class="page">
+        <h2>🤠Our Guests Today!🥳</h2>
+        <ul>
+          <% for (var i =0; i < guests.length;  i++ ) { %>
+            <li/>  <%="Guest ID [" %> <%=guests[i].Entry_Number%> <%="] is "%> <%=guests[i].Age%> <%="years old, and paid by "%> <%=guests[i].Payment_Method %>
+            <% } %>
+        </ul>
+        <div class="guestForm">
+          <h2>New Guest</h2>
+          <form action="/guest/new" method="POST" class="form">
+            <label for="guestAge">Age</label>
+            <input id="guestAge" type="number" name="age" class="input" placeholder="10" required>
+            <label for="paymentType">Payment Method</label>
+            <input id="paymentType" type="text" name="payment_method" class="input" placeholder="Credit" required>
+            <button type="submit" class="btn">Welcome to the Zoo!</button>
+          </form>
+          </div>
+        <div class="links">
+          <a href="/guest/count">Total Guests</a>
+        <a href="/guest/min">Youngest Guest</a>
+        <a href="/guest/max">Oldest Guest</a>
+        <a href="/guest/demographic">Demographic</a>
         </div>
-      <div class="links">
-        <a href="/guest/count">Total Guests</a>
-      <a href="/guest/min">Youngest Guest</a>
-      <a href="/guest/max">Oldest Guest</a>
-      <a href="/guest/demographic">Demographic</a>
       </div>
-    </div>
-        </div>
-      </main>
+          </div>
+    </main>
       
   </body>
   <script>

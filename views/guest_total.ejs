@@ -9,17 +9,19 @@
 </head>
 
   <body>
-    <div class="page">
       <header>
         <h1 class="title"><a href="http://localhost:2000/">🦧Zookeeper🦘</a></h1>
     </header>
+    <main>
+      <div class="page">
       
-      <h2>🤠Current Number of Guests🥳
-      </h2>
-      <ul>
-        <%="The total number of guests so far is "%> <%=guests[0]["COUNT(*)"]  %> <%="."%>
-      </ul>
-    </div>
+        <h2>🤠Current Number of Guests🥳
+        </h2>
+        <ul>
+          <%="The total number of guests so far is "%> <%=guests[0]["COUNT(*)"]  %> <%="."%>
+        </ul>
+      </div>
+    </main>
   </body>
   <script>
     function func1(){
