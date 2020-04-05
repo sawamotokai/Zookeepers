@@ -40,8 +40,29 @@ router.post('/feed', (req, res) => {
 		con.query(q, (error, result) => {
 			if (error) throw error;
 			console.log(result);
-			return res.status(200).redirect('/');
+			return res.status(200).redirect('/animal');
 		});
+	});
+});
+
+router.get('/edit/:id', (req, res) => {
+	const { id } = req.params;
+	const q = `SELECT * FROM animal WHERE ID=${id}`;
+	con.query(q, (error, results, fields) => {
+		if (error) throw error;
+		console.log(results);
+		return res.status(200).render('animalEdit', { animal: results[0] });
+	});
+});
+
+router.post('/edit/:id', (req, res) => {
+	const { id } = req.params;
+	const { name, age, species } = req.body;
+	const q = `UPDATE animal SET Name='${name}', Age=${age}, Species='${species}' WHERE ID=${id}`;
+	con.query(q, (error, results) => {
+		if (error) throw error;
+		console.log(results);
+		return res.status(200).redirect('/animal');
 	});
 });
 

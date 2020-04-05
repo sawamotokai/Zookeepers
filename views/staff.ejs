@@ -16,7 +16,12 @@
       <div id="staffList">
         <h2>💁‍♀️Staffs in our zoo💁🏻‍♂️</h2>
         <% for (var i =0; i < staffs.length;  i++ ) { %>
-          <p><%= staffs[i].Name %></p>
+          <div class="staffName">
+            <p><%= staffs[i].Name %></p>
+            <form action="/staff/delete/<%= staffs[i].ID%>" method="POST">
+              <input type="submit" value="Delete" class="clickable" />
+            </form>
+          </div>
           <% } %>
       </div>
       

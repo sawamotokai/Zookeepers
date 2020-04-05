@@ -287,12 +287,14 @@ VALUES ("1010 Zoo Road", "Bear Lovers", 8),
 
 #Cleans
 INSERT INTO cleans
-VALUES (1, 1, now()),
-(1, 2, now()),
-(1, 3, now()),
-(1, 4, now()),
-(2, 4, now()),
-(2, 5, now());
+VALUES 
+(1, 1, adddate(NOW(), INTERVAL -13 HOUR)),
+(1, 2, adddate(NOW(), INTERVAL -14 HOUR)),
+(1, 3, adddate(NOW(), INTERVAL -19 HOUR)),
+(1, 4, adddate(NOW(), INTERVAL -12 HOUR)),
+(2, 4, adddate(NOW(), INTERVAL -14 HOUR)),
+(2, 5, adddate(NOW(), INTERVAL -18 HOUR));
+
 
 #Buys
 INSERT INTO buys(guest_entry_number, product_ID, time, payment_method)

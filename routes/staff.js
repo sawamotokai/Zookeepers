@@ -62,4 +62,14 @@ router.get('/', (req, res) => {
 		.catch((err) => console.error(err));
 });
 
+router.post('/delete/:id', (req, res) => {
+	const { id } = req.params;
+	const q = `DELETE FROM staff where ID=${id}`;
+	con.query(q, (error, result) => {
+		if (error) throw error;
+		console.log(result);
+	});
+	return res.status(200).redirect('/staff');
+});
+
 module.exports = router;

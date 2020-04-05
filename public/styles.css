@@ -77,6 +77,12 @@ input {
 	background: pink;
 }
 
+.staffName {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
 #staff {
 	display: flex;
 	flex-direction: column;
