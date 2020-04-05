@@ -261,7 +261,8 @@ VALUES ("Bear plushie"),
 ("Dolphin mask"),
 ("Honey jar"),
 ("Sloth plushie"),
-("Chocolate bar");
+("Chocolate bar"),
+("Admission coupons");
 
 #Guest
 INSERT INTO guest(Age, Payment_Method)

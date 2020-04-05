@@ -10,16 +10,16 @@
 </head>
 
   <body>
-    <main>
       <div class="page"></div>
       <header>
         <h1 class="title"><a href="http://localhost:2000/">🦧Zookeeper🦘</a></h1>
     </header>
+    <main>
       
       <h2>🐘Popular Shows Today!🐅</h2>
       <ul>
         <% for (var i =0; i < shows.length;  i++ ) { %>
-          <li/>  <%=i+1%> <%= shows[i].Show_Name %>
+          <li/>  <%= shows[i].Show_Name %> <%= "had" %> <%= shows[i]["COUNT(Guest_ID)"] %> <%= "guests!" %>
           <% } %>
       </ul>
     </div>
