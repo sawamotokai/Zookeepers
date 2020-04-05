@@ -86,7 +86,7 @@ CREATE TABLE Charity (
 
 CREATE TABLE Donates (
 	ID INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	Guest_Entry_Number INT NOT NULL,
+	Guest_Entry_Number INTEGER UNSIGNED NOT NULL,
 	Charity_Name VARCHAR(255) NOT NULL,
 	Amount INTEGER DEFAULT 0.0,
 	CONSTRAINT FK_donator FOREIGN KEY (Guest_Entry_Number) REFERENCES Guest(Entry_Number),
@@ -287,12 +287,13 @@ VALUES ("1010 Zoo Road", "Bear Lovers", 8),
 
 #Cleans
 INSERT INTO cleans
-VALUES (1, 1, ADDDATE(NOW(), INTERVAL -12 HOUR),
-(1, 2, ADDDATE(NOW(), INTERVAL -12 HOUR),
-(1, 3, ADDDATE(NOW(), INTERVAL -12 HOUR)),
-(1, 4, ADDDATE(NOW(), INTERVAL -12 HOUR)),
-(2, 4, ADDDATE(NOW(), INTERVAL -12 HOUR)),
-(2, 5, ADDDATE(NOW(), INTERVAL -12 HOUR));
+VALUES 
+(1, 1, adddate(NOW(), INTERVAL -13 HOUR)),
+(1, 2, adddate(NOW(), INTERVAL -14 HOUR)),
+(1, 3, adddate(NOW(), INTERVAL -19 HOUR)),
+(1, 4, adddate(NOW(), INTERVAL -12 HOUR)),
+(2, 4, adddate(NOW(), INTERVAL -14 HOUR)),
+(2, 5, adddate(NOW(), INTERVAL -18 HOUR));
 
 #Buys
 INSERT INTO buys(guest_entry_number, product_ID, time, payment_method)
@@ -308,7 +309,10 @@ VALUES ("World Wildlife"), ("Bees Forever"), ("Fish Friends"), ("Tree Huggers"),
 
 #Donates    
 INSERT INTO donates(Guest_Entry_Number, Charity_Name, Amount)
-VALUES (001, "World Wildlife", 20);
+VALUES (001, "World Wildlife", 20),
+(010, "Bees Forever", 100),
+(009, "Bees Forever", 20),
+(004, "Tree Huggers", 15);
 
 #Item_Availability
 INSERT INTO item_availability
