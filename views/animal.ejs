@@ -61,9 +61,37 @@
         <label for="animalName">Name</label>
         <input id="animalName" type="text" name="name" class="input" placeholder="Atom" required>
         <label for="animalAge">Age</label>
-        <input id="animalAge" type="number" name="age" class="input" placeholder="7" required>
-        <label for="animalKind">Kind</label>
-        <input id="animalKind" type="text" name="kind" class="input" placeholder="cat" required>
+        <select name="age" id="age">
+          <% for (var i =0; i < 100;  i++ ) { %>
+            <option value="<%= i%>"><%= i %></option>
+            <% } %>
+        </select>
+        <label for="animalKind">Species</label>
+        <input id="animalKind" type="text" name="kind" class="input" placeholder="Cat" required>
+        <label for="area">Area</label>
+          <select name="area" id="area">
+            <% for (var i =0; i < cages.length;  i++ ) { %>
+              <option value="<%= cages[i].ID%>"><%= cages[i].Location %></option>
+              <% } %>
+          </select>
+        <label for="gender">Gender</label>
+        <select name="gender" id="gender">
+            <option value="M">M</option>
+            <option value="F">F</option>
+        </select>
+        <label for="zookeeperId">Zookeeper</label>
+            <select name="zookeeperId" id="zookeeperId">
+              <% for (var i =0; i < staffs.length;  i++ ) { %>
+                <option value="<%= staffs[i].ID%>"><%= staffs[i].Name %></option>
+                <% } %>
+            </select>
+        <label for="vetId">Vet</label>
+        <select name="vetId" id="vetId">
+          <% for (var i =0; i < staffs.length;  i++ ) { %>
+            <option value="<%= staffs[i].ID%>"><%= staffs[i].Name %></option>
+            <% } %>
+        </select>
+        
         <button type="submit" class="btn">Create!</button>
       </form>
       </div>

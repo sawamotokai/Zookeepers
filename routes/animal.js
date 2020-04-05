@@ -11,21 +11,60 @@ const con = mysql.createConnection({
 });
 
 router.get('/', (req, res) => {
-	con.query('SELECT * FROM animal', (error, results, fields) => {
-		if (error) throw error;
-		// console.log(results);
-		return res.status(200).render('animal', { animals: results });
-	});
+	let promises = [];
+	promises.push(
+		new Promise((resolve, reject) => {
+			const q = `SELECT * FROM staff ORDER BY Name`;
+			con.query(q, (error, results, fields) => {
+				if (error) reject(error);
+				// console.log(results);
+				resolve({ staffs: results });
+			});
+		})
+	);
+	promises.push(
+		new Promise((resolve, reject) => {
+			const q = `SELECT * FROM animal`;
+			con.query(q, (error, results, fields) => {
+				if (error) reject(error);
+				// console.log(results);
+				resolve({ animals: results });
+			});
+		})
+	);
+	promises.push(
+		new Promise((resolve, reject) => {
+			const q = `SELECT * FROM cage`;
+			con.query(q, (error, results, fields) => {
+				if (error) reject(error);
+				// console.log(results);
+				resolve({ cages: results });
+			});
+		})
+	);
+	Promise.all(promises)
+		.then((results) => {
+			let arg = {};
+			results.forEach((result) => {
+				arg = { ...arg, ...result };
+			});
+			res.render('animal', arg);
+		})
+		.catch((err) => console.error(err));
+	// con.query('SELECT * FROM animal', (error, results, fields) => {
+	// 	if (error) throw error;
+	// 	// console.log(results);
+	// 	return res.status(200).render('animal', { animals: results });
 });
 
 router.post('/', (req, res) => {
-	const { name, age, kind } = req.body;
-	const q = `INSERT INTO animal (Name, Age, Species) VALUES ("${name}", ${age}, "${kind}")`;
+	const { name, age, kind, area, zookeeperId, vetId, gender } = req.body;
+	const q = `INSERT INTO animal (Name, Age, Species, Cage_ID, Vet_ID, Zookeeper_ID, Gender) VALUES ("${name}", ${age}, "${kind}", ${area}, ${vetId}, ${zookeeperId}, '${gender}')`;
 	con.query(q, (error, result) => {
 		if (error) throw error;
 		// console.log(result);
 	});
-	return res.status(200).redirect('/');
+	return res.status(200).redirect('/animal');
 });
 
 router.get('/cage/:cageId', (req, res) => {

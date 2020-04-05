@@ -54,7 +54,9 @@ button {
 select {
 	cursor: pointer;
 	background-color: white;
-	padding: 10px;
+	/* padding: 10px; */
+	padding: 0.5em;
+	height: 2.35em;
 	border: solid 0.1em tomato;
 }
 
