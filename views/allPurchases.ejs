@@ -9,16 +9,19 @@
 </head>
 
   <body>
+    
       <header>
         <h1 class="title"><a href="http://localhost:2000/">🦧Zookeeper🦘</a></h1>
+        
     </header>
-      
-      <h2>💰All Sales from Today!🧸</h2>
+    <main>
+      <h2>🎁All Sales from Today!🧸</h2>
       <ul>
         <% for (var i =0; i < sales.length;  i++ ) { %>
-          <li/> <%= "Product #"%> <%= sales[i].product_ID %> <%= "was sold on "%> <%= sales[i].time%> <%="."%> <%="The guest paid by"%> <%= sales[i].payment_method %>
+          <li/> <%= "Product ID#:"%> <%= sales[i].product_ID %> <%="("%> <%=sales[i].Name%> <%=")" %> <%= "was sold on "%> <%= sales[i].time%> <%="."%> <%="The guest paid by"%> <%= sales[i].payment_method %>
           <% } %>
       </ul>
     </div>
+  </main>
   </body>
 </html>

@@ -59,6 +59,7 @@ CREATE TABLE Guest (
 CREATE TABLE Shows (
 	show_name CHAR(255),
 	show_time DATETIME DEFAULT NOW(),
+	show_location CHAR(255),
 	PRIMARY KEY (show_name, show_time)
 );
 
@@ -96,7 +97,7 @@ CREATE TABLE Donates (
 CREATE TABLE Shop (
 	Location CHAR(255),
 	Name CHAR(255),
-	Hours INTEGER,
+	Hours VARCHAR(255),
 	PRIMARY KEY(Location, Name)
 );
 
@@ -260,7 +261,8 @@ VALUES ("Bear plushie"),
 ("Dolphin mask"),
 ("Honey jar"),
 ("Sloth plushie"),
-("Chocolate bar");
+("Chocolate bar"),
+("Admission coupons");
 
 #Guest
 INSERT INTO guest(Age, Payment_Method)
@@ -279,11 +281,11 @@ VALUES (20, "Cash"),
 
 #Shop
 INSERT INTO shop
-VALUES ("1010 Zoo Road", "Bear Lovers", 8),
-("1020 Zoo Road", "Ice Ice Baby", 8),
-("2324 Grapevine Street", "The Wildlife", 8),
-("896 Ocean Road", "Ocean Eyes", 8),
-("1010 Sahara Street", "Desserts at the Desert", 8);
+VALUES ("1010 Zoo Road", "Bear Lovers", "09:00 - 17:00"),
+("1020 Zoo Road", "Ice Ice Baby", "09:00 - 17:00"),
+("2324 Grapevine Street", "The Wildlife", "10:00 - 15:00"),
+("896 Ocean Road", "Ocean Eyes", "10:00 - 15:00"),
+("1010 Sahara Street", "Desserts at the Desert", "09:00 - 17:00");
 
 #Cleans
 INSERT INTO cleans
@@ -298,11 +300,11 @@ VALUES
 
 #Buys
 INSERT INTO buys(guest_entry_number, product_ID, time, payment_method)
-VALUES (1, 003, now(), "Cash"),
-(2, 003, now(), "Cash"),
-(3, 003, now(), "Credit"),
-(1, 003, now(), "Cash"),
-(1, 001, now(), "Cash");
+VALUES (1, 003, adddate(NOW(), INTERVAL -5 HOUR), "Cash"),
+(2, 003, adddate(NOW(), INTERVAL -5 HOUR), "Cash"),
+(3, 003, adddate(NOW(), INTERVAL -4 HOUR), "Credit"),
+(1, 003, adddate(NOW(), INTERVAL -3 HOUR), "Cash"),
+(1, 001, adddate(NOW(), INTERVAL -2 HOUR), "Cash");
 
 #Charity
 INSERT INTO charity(Charity_Name)
@@ -311,6 +313,10 @@ VALUES ("World Wildlife"), ("Bees Forever"), ("Fish Friends"), ("Tree Huggers"),
 #Donates    
 INSERT INTO donates(Guest_Entry_Number, Charity_Name, Amount)
 VALUES (001, "World Wildlife", 20),
+(001, "Bees Forever", 20),
+(001, "Fish Friends", 20),
+(001, "Tree Huggers", 20),
+(001, "SPCA", 20),
 (010, "Bees Forever", 100),
 (009, "Bees Forever", 20),
 (004, "Tree Huggers", 15);
@@ -347,22 +353,33 @@ VALUES (001, "0-5", 1, 10),
 
 #Shows
 INSERT INTO shows
-VALUES ("Bear Feed", now()),
-("Penguin Dive", now()),
-("Penguin Feed", now()),
-("Sloth Nap", now()),
-("Camel Training", now()),
-("Polar Bears", now()),
-("Parrot Talk", now());
+VALUES ("Bear Feed", adddate(NOW(), INTERVAL -5 HOUR), "Forest"),
+("Sloth Nap", adddate(NOW(), INTERVAL -3 HOUR), "Forest"),
+("Camel Training", adddate(NOW(), INTERVAL -1 HOUR), "Desert"),
+("Penguin Dive", adddate(NOW(), INTERVAL +1 HOUR), "Snow"),
+("Penguin Feed", adddate(NOW(), INTERVAL +1 HOUR), "Snow"),
+("Polar Bears", adddate(NOW(), INTERVAL +2 HOUR), "Snow"),
+("Parrot Talk", adddate(NOW(), INTERVAL +2 HOUR), "Tropics");
 
 #Performs
 INSERT INTO performs
-VALUES ("Bear Feed", now(), 1, 1),
-("Bear Feed", now(), 1, 2),
-("Bear Feed", now(), 1, 3),
-("Penguin Dive", now(), 2, 4),
-("Penguin Feed", now(), 2, 4),
-("Parrot Talk", now(), 4, 5);
+VALUES ("Bear Feed", adddate(NOW(), INTERVAL -5 HOUR), 1, 1),
+("Bear Feed", adddate(NOW(), INTERVAL -5 HOUR), 1, 2),
+("Bear Feed", adddate(NOW(), INTERVAL -5 HOUR), 1, 3),
+("Penguin Dive", adddate(NOW(), INTERVAL +1 HOUR), 2, 4),
+("Penguin Feed", adddate(NOW(), INTERVAL +1 HOUR), 2, 4),
+("Parrot Talk", adddate(NOW(), INTERVAL +2 HOUR), 4, 5);
+
+#Watches
+INSERT INTO watches
+VALUES (1, "Bear Feed", adddate(NOW(), INTERVAL -5 HOUR)),
+(2, "Bear Feed", adddate(NOW(), INTERVAL -5 HOUR)),
+(3, "Penguin Dive", adddate(NOW(), INTERVAL +1 HOUR)),
+(4, "Sloth Nap", adddate(NOW(), INTERVAL -3 HOUR)),
+(5, "Camel Training", adddate(NOW(), INTERVAL -1 HOUR)),
+(6, "Camel Training", adddate(NOW(), INTERVAL -1 HOUR)),
+(7, "Sloth Nap", adddate(NOW(), INTERVAL -3 HOUR)),
+(8, "Camel Training", adddate(NOW(), INTERVAL -1 HOUR));
 
 #Trains
 INSERT INTO trains
@@ -376,25 +393,10 @@ VALUES (1, 1),
 (3, 9),
 (4, 5);
 
-#Watches
-INSERT INTO watches
-VALUES (1, "Bear Feed", now()),
-(2, "Bear Feed", now()),
-(3, "Penguin Dive", now()),
-(4, "Sloth Nap", now()),
-(5, "Camel Training", now()),
-(6, "Camel Training", now()),
-(7, "Sloth Nap", now()),
-(8, "Camel Training", now()),
-(9, "Sloth Nap", now()),
-(10, "Sloth Nap", now()),
-(11, "Sloth Nap", now());
-
-
 #Gift_Shop_Item
 INSERT INTO gift_shop_item
 VALUES (1, 1, "Bear plushie", 10),
-(2, 2, "Bear plushie", 10),
-(3, 3, "Bear plushie", 10),
-(4, 4, "Dolphin mask", 15),
-(5, 5, "Honey jar", 5);
+(1, 2, "Bear plushie", 10),
+(1, 3, "Bear plushie", 10),
+(2, 4, "Dolphin mask", 15),
+(3, 5, "Honey jar", 5);
