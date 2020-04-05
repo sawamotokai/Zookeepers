@@ -5,19 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zookeeper</title>
   <link rel="stylesheet" href="/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+
 </head>
 
   <body>
-    <div class="page">
       <header>
         <h1 class="title"><a href="http://localhost:2000/">🦧Zookeeper🦘</a></h1>
     </header>
-      
-      <h2>Youngest Guest Today</h2>
-      <ul>
-        <%="The youngest guest today is: "%> <%=guests[0]["MIN(age)"] %> <%=" years old!"%>
-      </ul>
+    <main>
+    <div class="page">
+      <h3><%="The youngest guest today is: "%> <%=guests[0]["MIN(age)"] %> <%=" years old!"%></h3>
     </div>
+    </main>  
+
   </body>
   <script>
     function func1(){
