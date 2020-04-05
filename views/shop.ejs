@@ -4,36 +4,40 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zookeeper</title>
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="/styles.css">
 </head>
 
   <body>
-    <div class="page">
-      <div class="header">
-          <h1 class="title">Guests</h1>
-          </p>
-      </div>
-      
-      <h2>Guests who have entered the zoo today</h2>
-      <ul>
-        <% for (var i =0; i < shops.length;  i++ ) { %>
-          <li/>  <%=shops[i].Location%> <%=", "%> <%=shops[i].Name%> <%=", "%> <%=shops[i].Hours %>
-          <% } %>
-      </ul>
-      <div class="guestForm">
-        <h2>New Guest</h2>
-        <form action="/guest/new" method="POST" class="form">
-          <label for="guestAge">Age</label>
-          <input id="guestAge" type="number" name="age" class="input" placeholder="10" required>
-          <label for="paymentType">Payment Method</label>
-          <input id="paymentType" type="text" name="payment_method" class="input" placeholder="Credit" required>
-          <button type="submit" class="btn">Create!</button>
-        </form>
+    <main>
+      <div class="page">
+        <div class="header">
+            <h1 class="title">Guests</h1>
+            </p>
         </div>
-      <button onclick='func1()'>Total Guests</button>
-      <button onclick='func2()'>Youngest Guest</button>
-      <button onclick='func3()'>Oldest Guest</button>
-    </div>
+        
+        <h2>Guests who have entered the zoo today</h2>
+        <ul>
+          <% for (var i =0; i < shops.length;  i++ ) { %>
+            <li/>  <%=shops[i].Location%> <%=", "%> <%=shops[i].Name%> <%=", "%> <%=shops[i].Hours %>
+            <% } %>
+        </ul>
+        <div class="guestForm">
+          <h2>New Guest</h2>
+          <form action="/guest/new" method="POST" class="form">
+            <label for="guestAge">Age</label>
+            <input id="guestAge" type="number" name="age" class="input" placeholder="10" required>
+            <label for="paymentType">Payment Method</label>
+            <input id="paymentType" type="text" name="payment_method" class="input" placeholder="Credit" required>
+            <button type="submit" class="btn">Create!</button>
+          </form>
+          </div>
+        <button onclick='func1()'>Total Guests</button>
+        <button onclick='func2()'>Youngest Guest</button>
+        <button onclick='func3()'>Oldest Guest</button>
+      </div>
+    </main>
   </body>
   <script>
     function func1(){

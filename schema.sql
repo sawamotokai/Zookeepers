@@ -37,7 +37,7 @@ CREATE TABLE Animal (
 
 CREATE TABLE Animal_Meal (
 	Animal_ID INT,
-	ID INT,
+	ID VARCHAR(255),
 	Amount INT,
 	Time DATETIME DEFAULT NOW(),
 	Zookeeper_ID INTEGER, 
@@ -87,7 +87,7 @@ CREATE TABLE Charity (
 
 CREATE TABLE Donates (
 	ID INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	Guest_Entry_Number INTEGER UNSIGNED NOT NULL,
+	Guest_Entry_Number INT NOT NULL,
 	Charity_Name VARCHAR(255) NOT NULL,
 	Amount INTEGER DEFAULT 0.0,
 	CONSTRAINT FK_donator FOREIGN KEY (Guest_Entry_Number) REFERENCES Guest(Entry_Number),
@@ -291,12 +291,12 @@ VALUES ("World Wildlife"), ("Bees Forever"), ("Fish Friends"), ("Tree Huggers"),
 
 #Cleans
 INSERT INTO cleans
-VALUES (1, 1, now()),
-(1, 2, now()),
-(1, 3, now()),
-(1, 4, now()),
-(2, 4, now()),
-(2, 5, now());
+VALUES (1, 1, ADDDATE(NOW(), INTERVAL -12 HOUR),
+(1, 2, ADDDATE(NOW(), INTERVAL -12 HOUR),
+(1, 3, ADDDATE(NOW(), INTERVAL -12 HOUR)),
+(1, 4, ADDDATE(NOW(), INTERVAL -12 HOUR)),
+(2, 4, ADDDATE(NOW(), INTERVAL -12 HOUR)),
+(2, 5, ADDDATE(NOW(), INTERVAL -12 HOUR));
 
 #Buys
 INSERT INTO buys(guest_entry_number, product_ID, time, payment_method)
