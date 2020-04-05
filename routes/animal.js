@@ -51,10 +51,6 @@ router.get('/', (req, res) => {
 			res.render('animal', arg);
 		})
 		.catch((err) => console.error(err));
-	// con.query('SELECT * FROM animal', (error, results, fields) => {
-	// 	if (error) throw error;
-	// 	// console.log(results);
-	// 	return res.status(200).render('animal', { animals: results });
 });
 
 router.post('/', (req, res) => {
