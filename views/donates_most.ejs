@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zookeeper</title>
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="/styles.css">
 </head>
 
@@ -11,22 +13,24 @@
     <header>
         <h1 class="title"><a href="http://localhost:2000/">🦧Zookeeper🦘</a></h1>
     </header>
-<div class="page">
+    <main>
+        <div class="page">
     
-    <div class="header">
-        <h1 class="title">💰Charities💖</h1>
-        </p>
-    </div>
-
-    <h2>Charity With the Most Donations</h2>
-    <ul>
-        <% for (var i =0; i < donates.length;  i++ ) { %>
-        <li/> <p>Charity: %> <%=donates[i].Charity_Name%> <%=", Total Amount: "%> <%=donates[i].Total %>
-        <% } %>
-    </ul>
-    </form>
-    <button onclick='func1()'>Back to donations</button>
-</div>
+            <div class="header">
+                <h1 class="title">💰Charities💖</h1>
+                </p>
+            </div>
+        
+            <h2>Charity With the Most Donations</h2>
+            <ul>
+                <% for (var i =0; i < donates.length;  i++ ) { %>
+                <li/> <p>Charity: %> <%=donates[i].Charity_Name%> <%=", Total Amount: "%> <%=donates[i].Total %>
+                <% } %>
+            </ul>
+            </form>
+            <button onclick='func1()'>Back to donations</button>
+        </div>
+    </main>
 </body>
 <script>
     function func1(){

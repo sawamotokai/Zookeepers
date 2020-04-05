@@ -4,26 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zookeeper</title>
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
 </head>
 
   <body>
+   <header>
+        <h1 class="title"><a href="http://localhost:2000/">🦧Zookeeper🦘</a></h1>
+    </header>
+    <main>
     <div class="page">
-      <div class="header">
-          <h1 class="title">Guests</h1>
-          </p>
-      </div>
       
-      <h2>Guests who have entered the zoo today</h2>
+      <h2>💰Our Zoo's Shops!🧸</h2>
       <ul>
         <% for (var i =0; i < shops.length;  i++ ) { %>
-          <li/>  <%=shops[i].Location%> <%=", "%> <%=shops[i].Name%> <%=", "%> <%=shops[i].Hours %>
+          <li/>  <%="Our shop"%> <%=shops[i].Name%> <%="is located at"%> <%=shops[i].Location%> <%="and its hours today are: "%><%=shops[i].Hours %>
           <% } %>
       </ul>
 
       <button onclick='func1()'>Popular Items</button>
       <button onclick='func2()'>All Purchases</button>
     </div>
+    </main>
   </body>
   <script>
     function func1(){

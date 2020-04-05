@@ -36,10 +36,16 @@ router.get('/count', (req, res) => {
 });
 
 router.get('/demographic', (req, res) => {
-	con.query('SELECT count(g) FROM Ticket as t, Guest as g GROUP BY Ticket.Age_Range', (error, results, fields) => {
+	const q =
+		`SELECT COUNT(*) AS Total, ` +
+		`CASE WHEN Age >= 0 AND Age <= 5 THEN '0-5' ` +
+		`WHEN Age >= 6 AND Age <= 17 THEN '6-17' ` +
+		`WHEN Age >= 18 AND Age <= 65 THEN '18-65' ` +
+		`ELSE '65+' END AS AgeRange FROM Guest GROUP BY AgeRange`;
+	con.query(q, (error, results, fields) => {
 		if (error) throw error;
 		console.log(results);
-		return res.status(200).render('demographic', { guests: results, clickHandler: 'func1()' });
+		return res.status(200).render('demographic', { guests: results });
 	});
 });
 

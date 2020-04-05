@@ -3,22 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+
   <title>Zookeeper</title>
   <link rel="stylesheet" href="/styles.css">
 </head>
 
   <body>
-    <div class="page">
+    <main>
+      <div class="page"></div>
       <header>
         <h1 class="title"><a href="http://localhost:2000/">🦧Zookeeper🦘</a></h1>
     </header>
       
-      <h2>These are today's most popular shows: </h2>
+      <h2>🐘Popular Shows Today!🐅</h2>
       <ul>
         <% for (var i =0; i < shows.length;  i++ ) { %>
           <li/>  <%=i+1%> <%= shows[i].Show_Name %>
           <% } %>
       </ul>
     </div>
+    </main>
   </body>
 </html>
