@@ -36,7 +36,7 @@ CREATE TABLE Animal (
 
 CREATE TABLE Animal_Meal (
 	Animal_ID INT,
-	ID VARCHAR(255),
+	ID VARCHAR(254),
 	Amount INT,
 	Time DATETIME DEFAULT NOW(),
 	Zookeeper_ID INTEGER, 
