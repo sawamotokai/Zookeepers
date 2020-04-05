@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zookeeper</title>
   <link rel="stylesheet" href="/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
 </head>
 
   <body>
@@ -13,10 +14,10 @@
         <h1 class="title"><a href="http://localhost:2000/">🦧Zookeeper🦘</a></h1>
     </header>
       
-      <h2>Guests who have entered the zoo today</h2>
+      <h2>🤠Our Guests Today!🥳</h2>
       <ul>
         <% for (var i =0; i < guests.length;  i++ ) { %>
-          <li/>  <%=guests[i].Entry_Number%> <%=", "%> <%=guests[i].Age%> <%=", "%> <%=guests[i].Payment_Method %>
+          <li/>  <%="Guest ID [" %> <%=guests[i].Entry_Number%> <%="] is "%> <%=guests[i].Age%> <%="years old, and paid by "%> <%=guests[i].Payment_Method %>
           <% } %>
       </ul>
       <div class="guestForm">
@@ -26,7 +27,7 @@
           <input id="guestAge" type="number" name="age" class="input" placeholder="10" required>
           <label for="paymentType">Payment Method</label>
           <input id="paymentType" type="text" name="payment_method" class="input" placeholder="Credit" required>
-          <button type="submit" class="btn">Create!</button>
+          <button type="submit" class="btn">Welcome to the Zoo!</button>
         </form>
         </div>
       <button onclick='func1()'>Total Guests</button>
