@@ -36,7 +36,7 @@ CREATE TABLE Animal (
 
 CREATE TABLE Animal_Meal (
 	Animal_ID INT,
-	ID VARCHAR(255),
+	ID INT,
 	Amount INT,
 	Time DATETIME DEFAULT NOW(),
 	Zookeeper_ID INTEGER, 
@@ -294,6 +294,7 @@ VALUES
 (1, 4, adddate(NOW(), INTERVAL -12 HOUR)),
 (2, 4, adddate(NOW(), INTERVAL -14 HOUR)),
 (2, 5, adddate(NOW(), INTERVAL -18 HOUR));
+
 
 #Buys
 INSERT INTO buys(guest_entry_number, product_ID, time, payment_method)

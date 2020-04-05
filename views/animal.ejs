@@ -31,7 +31,10 @@
             <input  type="text" name="mealType" id="mealType" placeholder="Eggplants" required>
             <button id="feedBtn" type="submit"">Feed!!</button>
           </div>
-          
+
+          <div class="fedAnimal">
+            <a href="http://localhost:2000/animal/animalstofeed">Find Animals to Feed</a>
+          </div>
 
           <div id="animalList">
             <% for (var i =0; i < animals.length;  i++ ) { %>
@@ -64,6 +67,20 @@
         <button type="submit" class="btn">Create!</button>
       </form>
       </div>
+
+      <h2>Remove Animal</h2>
+      <form action="/removeanimal" method="POST" class="form">
+          <div class="dropDowns">
+  
+              <label for="animalID">Select Animal</label>
+              <select name="animalID" id="animalID">
+                  <% for (var i =0; i < animals.length;  i++ ) { %>
+                  <option value="<%= animals[i].ID%>"><%= animals[i].Name %></option>
+                  <% } %>
+              </select>
+              <button type="submit">Remove</button>
+          </div>
+      </form>
     </section>
     </main>
       

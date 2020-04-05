@@ -80,3 +80,13 @@ app.get('/', (req, res) => {
 		})
 		.catch((err) => console.error(err));
 });
+
+app.post('/removeanimal', (req, res) => {
+	const {animalID} = req.body;
+	const q = `DELETE FROM animal WHERE ID=${animalID}`;
+	con.query(q, (error, result) => {
+		if (error) throw error;
+		console.log(result);
+		return res.status(200).redirect('/animal');
+	});
+});
